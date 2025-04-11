@@ -1,0 +1,11 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/PharmactMangmentBLL/bin
+/PharmactMangmentBLL/obj
+/PharmactMangmentDAL/bin
+/PharmactMangmentDAL/obj
+/PharmactMangmentEditeIdea/bin
+/PharmactMangmentEditeIdea/obj

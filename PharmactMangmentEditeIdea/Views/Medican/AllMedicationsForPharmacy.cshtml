@@ -1,0 +1,33 @@
+﻿@using PharmactMangmentDAL.Models
+@model List<Medication>
+@{
+    ViewData["Title"] = "AllMedicationsForPharmacy";
+}
+
+
+
+<h2>My Pharmacy Medications</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Price</th>
+            <th>Price</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var medication in Model)
+        {
+            <tr>
+                <td>@medication.Name</td>
+                <td>@medication.Price</td>
+                <td>@medication.Category</td>
+                <td>@medication.Description</td>
+                <td>@medication.ImageName</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,183 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<!-- Hero Section: Main landing page banner with call-to-action -->
+<section class="hero-section">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold mb-4">Find Your Medication Quickly and Easily</h1>
+        <p class="lead mb-5">Search for medications at nearby pharmacies in your area</p>
+        <div class="d-flex justify-content-center gap-3">
+            <a href="search.html" class="btn btn-primary btn-lg">
+                <i class="bi bi-search me-2"></i>
+                Search Medications
+            </a>
+            <a href="pharmacy-login.html" class="btn btn-outline-light btn-lg">
+                <i class="bi bi-shop me-2"></i>
+                I'm a Pharmacy
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section: Highlights key features of the system -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">How It Works</h2>
+            <p class="text-muted">Find medications in just a few simple steps</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body text-center p-4">
+                        <div class="mb-3">
+                            <i class="bi bi-search text-primary" style="font-size: 2.5rem;"></i>
+                        </div>
+                        <h3 class="h4 mb-3">Search</h3>
+                        <p class="text-muted">Enter the name of the medication you need and your location</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body text-center p-4">
+                        <div class="mb-3">
+                            <i class="bi bi-geo-alt text-primary" style="font-size: 2.5rem;"></i>
+                        </div>
+                        <h3 class="h4 mb-3">Locate</h3>
+                        <p class="text-muted">Find nearby pharmacies that have your medication in stock</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body text-center p-4">
+                        <div class="mb-3">
+                            <i class="bi bi-telephone text-primary" style="font-size: 2.5rem;"></i>
+                        </div>
+                        <h3 class="h4 mb-3">Connect</h3>
+                        <p class="text-muted">Contact the pharmacy directly to confirm availability</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Voice Search Section: Highlights voice search capability -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <h2 class="fw-bold mb-3">Voice Search Available</h2>
+                <p class="mb-4">Don't want to type? Use our voice search feature to find medications even faster.</p>
+                <ul class="list-unstyled mb-4">
+                    <li class="d-flex align-items-center mb-3">
+                        <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                        <span>Just click the microphone button and speak</span>
+                    </li>
+                    <li class="d-flex align-items-center mb-3">
+                        <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                        <span>Works in multiple languages</span>
+                    </li>
+                    <li class="d-flex align-items-center">
+                        <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                        <span>Accurate and fast recognition</span>
+                    </li>
+                </ul>
+                <a href="search.html" class="btn btn-primary">
+                    <i class="bi bi-mic-fill me-2"></i>
+                    Try Voice Search
+                </a>
+            </div>
+            <div class="col-lg-6">
+                <div class="card border-0 shadow">
+                    <div class="card-body p-4 text-center">
+                        <i class="bi bi-mic-fill text-primary mb-3" style="font-size: 4rem;"></i>
+                        <h3 class="h4 mb-3">Say what you need</h3>
+                        <p class="mb-4">"I need Paracetamol in Nasr City, Cairo"</p>
+                        <button class="btn btn-outline-primary rounded-circle p-3">
+                            <i class="bi bi-mic-fill" style="font-size: 1.5rem;"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- For Pharmacies Section: Information for pharmacy partners -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">For Pharmacies</h2>
+            <p class="text-muted">Join our network and reach more customers</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100">
+                    <div class="card-body text-center p-4">
+                        <div class="mb-3">
+                            <i class="bi bi-shop text-primary" style="font-size: 2rem;"></i>
+                        </div>
+                        <h3 class="h5 mb-3">Register</h3>
+                        <p class="text-muted small">Create an account for your pharmacy</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100">
+                    <div class="card-body text-center p-4">
+                        <div class="mb-3">
+                            <i class="bi bi-box-seam text-primary" style="font-size: 2rem;"></i>
+                        </div>
+                        <h3 class="h5 mb-3">Add Inventory</h3>
+                        <p class="text-muted small">Upload your available medications</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100">
+                    <div class="card-body text-center p-4">
+                        <div class="mb-3">
+                            <i class="bi bi-eye text-primary" style="font-size: 2rem;"></i>
+                        </div>
+                        <h3 class="h5 mb-3">Get Discovered</h3>
+                        <p class="text-muted small">Be visible to customers looking for medications</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100">
+                    <div class="card-body text-center p-4">
+                        <div class="mb-3">
+                            <i class="bi bi-graph-up-arrow text-primary" style="font-size: 2rem;"></i>
+                        </div>
+                        <h3 class="h5 mb-3">Grow Business</h3>
+                        <p class="text-muted small">Increase foot traffic and sales</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <a href="pharmacy-register.html" class="btn btn-primary">
+                <i class="bi bi-person-plus me-2"></i>
+                Register Your Pharmacy
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section: Call-to-action to encourage user engagement -->
+<section class="py-5 bg-primary text-white">
+    <div class="container text-center">
+        <h2 class="fw-bold mb-3">Ready to find your medication?</h2>
+        <p class="mb-4">Start searching now to find medications at pharmacies near you</p>
+        <a href="search.html" class="btn btn-light btn-lg">
+            <i class="bi bi-search me-2"></i>
+            Search Medications
+        </a>
+    </div>
+</section>

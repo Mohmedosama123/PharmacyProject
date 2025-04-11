@@ -1,0 +1,240 @@
+﻿@using PharmactMangmentDAL.Models
+@model IEnumerable<Medication>
+@{
+    Layout = "/Views/Shared/_LLLL.cshtml";
+}
+<main class="flex-grow-1">
+    <div class="container py-4 py-md-5">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4">
+            <div>
+                <h1 class="h2 mb-1">Pharmacy Dashboard</h1>
+                <p class="text-muted">Manage your medications and pharmacy information</p>
+            </div>
+            <a href="index.html" class="btn btn-outline-primary">
+                <i class="bi bi-box-arrow-right me-1"></i>
+                Log Out
+            </a>
+        </div>
+
+        <ul class="nav nav-tabs mb-4" id="pharmacyTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button asp-action="AllMedicationsForPharmacy" class="nav-link active" id="medications-tab" data-bs-toggle="tab" data-bs-target="#medications-tab-pane" type="button" role="tab" aria-controls="medications-tab-pane" aria-selected="true">
+                    Medications
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="add-tab" data-bs-toggle="tab" data-bs-target="#add-tab-pane" type="button" role="tab" aria-controls="add-tab-pane" aria-selected="false">
+                    Add Medication
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">
+                    Pharmacy Profile
+                </button>
+            </li>
+        </ul>
+
+        @* all Content *@
+        <div class="tab-content" id="pharmacyTabsContent">
+
+            @*قبل ال card*@
+            <div class="tab-pane fade" id="add-tab-pane" role="tabpanel" aria-labelledby="add-tab" tabindex="0">
+                <div class="card">
+                    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="mb-0">Add Medications</h5>
+                            <p class="text-muted mb-0">Select medications to add to your pharmacy inventory</p>
+                        </div>
+                        <div class="input-group" style="max-width: 300px;">
+                            <span class="input-group-text"><i class="bi bi-search"></i></span>
+                            <input type="text" class="form-control" id="medicationCatalogSearch" placeholder="Search medications...">
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="mb-4">
+                            @* common part *@
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h6 class="mb-0">Common Medications</h6>
+                                <div class="btn-group" role="group" aria-label="View mode">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary active" id="grid-view-btn">
+                                        <i class="bi bi-grid"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary" id="list-view-btn">
+                                        <i class="bi bi-list"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Grid View (Default) -->
+                            <div class="row g-3" id="medications-grid-view">
+                                <!-- Medication Cards -->
+                                @foreach (var medication in Model)
+                                {
+                                    <div class="col-md-6 col-lg-4 col-xl-3 medication-catalog-item">
+                                        <div class="card h-100 position-relative">
+                                            <div class="position-absolute top-0 end-0 m-2">
+                                                <button class="btn btn-sm btn-primary rounded-circle add-medication-btn"
+                                                        data-medication-id="@medication.Id"
+                                                        data-medication-name="@medication.Name"
+                                                        data-medication-price="@medication.Price">
+                                                    <i class="bi bi-plus"></i>
+                                                </button>
+                                            </div>
+
+                                            <div class="card-body text-center">
+                                                <div class="medication-img mx-auto mb-3">
+                                                    <img src="placeholder.svg" alt="@medication.Name" class="img-fluid rounded">
+                                                </div>
+                                                <h5 class="card-title mb-1">@medication.Name</h5>
+                                                <p class="text-muted small mb-2">@medication.Category</p>
+                                                <p class="fw-bold mb-0">@medication.Price</p>
+                                            </div>
+                                            <div class="card-footer bg-white border-top-0 text-center">
+                                                <button class="btn btn-sm btn-outline-primary view-details-btn" data-medication-id="@medication.Id">
+                                                    View Details
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
+                        <!-- Added Medications Section -->
+                        <div class="mt-4 pt-4 border-top">
+                            <h6 class="mb-3">Selected Medications</h6>
+                            <div id="selected-medications-container">
+                                <div class="alert alert-info" id="no-medications-selected">
+                                    <i class="bi bi-info-circle me-2"></i>
+                                    No medications selected yet. Click the "+" button on any medication above to add it to your inventory.
+                                </div>
+                                <div class="table-responsive d-none" id="selected-medications-table-container">
+                                    <table class="table table-bordered" id="selected-medications-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Price (EGP)</th>
+                                                <th>Quantity</th>
+                                                <th>In Stock</th>
+                                                <th class="text-end">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="selected-medications-list">
+                                            <!-- Selected medications will be added here dynamically -->
+                                        </tbody>
+                                    </table>
+                                    <div class="d-flex justify-content-end mt-3">
+                                        <button type="button" class="btn btn-outline-secondary me-2" id="clear-all-btn">
+                                            <i class="bi bi-x-circle me-1"></i>
+                                            Clear All
+                                        </button>
+                                        @Html.AntiForgeryToken()
+                                        <button id="save-medications-btn" class="btn btn-success mt-3">
+                                            Save All Medications
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            @*==================== Profile ===================== *@
+            <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                <div class="card">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0">Pharmacy Profile</h5>
+                        <p class="text-muted mb-0">View and update your pharmacy information</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center mb-4">
+                            <a href="pharmacy-profile.html" class="btn btn-primary">
+                                <i class="bi bi-pencil-square me-2"></i>
+                                Edit Profile
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Delete Medication Modal -->
+<div class="modal fade" id="deleteMedicationModal" tabindex="-1" aria-labelledby="deleteMedicationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteMedicationModalLabel">Confirm Deletion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete <span id="medicationNameToDelete"></span>? This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form>
+                    <input type="hidden" id="medicationIdToDelete" name="id">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-trash me-1"></i>
+                        Delete
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Medication Details Modal -->
+<div class="modal fade" id="medicationDetailsModal" tabindex="-1" aria-labelledby="medicationDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="medicationDetailsModalLabel">Medication Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center mb-3">
+                    <div class="medication-img mx-auto">
+                        <img src="placeholder.svg" alt="Medication" id="modal-medication-image" class="img-fluid rounded">
+                    </div>
+                </div>
+                <h4 id="modal-medication-name" class="text-center mb-3">Medication Name</h4>
+                <div class="row mb-3">
+                    <div class="col-6">
+                        <p class="mb-1 text-muted">Category:</p>
+                        <p id="modal-medication-category" class="fw-medium">Category</p>
+                    </div>
+                    <div class="col-6">
+                        <p class="mb-1 text-muted">Price:</p>
+                        <p id="modal-medication-price" class="fw-medium">0.00 EGP</p>
+                    </div>
+                </div>
+                <p class="mb-1 text-muted">Description:</p>
+                <p id="modal-medication-description">
+                    Detailed description of the medication including its uses, dosage, and other relevant information.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="modal-add-medication-btn">
+                    <i class="bi bi-plus me-1"></i>
+                    Add to Inventory
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Alternative approach using a form for browsers that don't support fetch well -->
+<form id="saveMedicationsForm" method="post" action="@Url.Action("Dashbord", "Medican")" style="display: none;">
+    @Html.AntiForgeryToken()
+    <div id="medicationIdsContainer">
+        <!-- Hidden inputs will be added here dynamically -->
+    </div>
+</form>

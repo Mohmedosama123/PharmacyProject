@@ -1,0 +1,142 @@
+﻿@model SignUpViewModel
+@{
+    ViewData["Title"] = "SignUp";
+}
+<main class="flex-grow-1 bg-light">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body p-4">
+                        <div class="card-header bg-white">
+                            <ul class="nav nav-tabs card-header-tabs" id="pharmacyTabs" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <a asp-action="SignIn" class="nav-link" id="login-tab">Login</a>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <a asp-action="SignUp" class="nav-link active" id="register-tab">Register</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <h2 class="text-center mb-4">Pharmacy Portal</h2>
+                            <p class="text-muted text-center mb-4">Access your pharmacy dashboard to manage medications</p>
+                            <form asp-action="SignUp" method="post">
+                                <h5 class="border-bottom pb-2 mb-3">Account Information</h5>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label asp-for="UserName" class="form-label"></label>
+                                        <input asp-for="UserName" class="form-control" required>
+                                        <span asp-validation-for="UserName" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label asp-for="Email" class="form-label"></label>
+                                        <input asp-for="Email" class="form-control" required>
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
+
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label asp-for="Password" class="form-label"></label>
+                                        <input asp-for="Password" class="form-control" required>
+                                        <span asp-validation-for="Password" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label asp-for="ConfirmPassword" class="form-label"></label>
+                                        <input asp-for="ConfirmPassword" class="form-control" required>
+                                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+
+                                <h5 class="border-bottom pb-2 mb-3 mt-4">Pharmacy Information</h5>
+                                <div class="mb-3">
+                                    <label asp-for="NameOfPharmacy" class="form-label"></label>
+                                    <input asp-for="NameOfPharmacy" class="form-control" required>
+                                    <span asp-validation-for="NameOfPharmacy" class="text-danger"></span>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label asp-for="OwnerName" class="form-label"></label>
+                                        <input asp-for="OwnerName" class="form-control" required>
+                                        <span asp-validation-for="OwnerName" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label asp-for="License_Number" class="form-label"></label>
+                                        <input asp-for="License_Number" class="form-control" required>
+                                        <span asp-validation-for="License_Number" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label asp-for="PhoneNumber" class="form-label"></label>
+                                        <input asp-for="PhoneNumber" class="form-control" required>
+                                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label asp-for="OperatingHours" class="form-label"></label>
+                                        <input asp-for="OperatingHours" class="form-control">
+                                        <span asp-validation-for="OperatingHours" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <h5 class="border-bottom pb-2 mb-3 mt-4">Address Information</h5>
+                                <div class="mb-3">
+                                    <label asp-for="FullAddress" class="form-label"></label>
+                                    <input asp-for="FullAddress" class="form-control" required>
+                                    <span asp-validation-for="FullAddress" class="text-danger"></span>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label asp-for="Governorate" class="form-label"></label>
+                                        <select asp-for="Governorate" class="form-select" required>
+                                            <option value="">Select Governorate</option>
+                                            <option value="Cairo">Cairo</option>
+                                            <option value="Alexandria">Alexandria</option>
+                                            <option value="Giza">Giza</option>
+                                            <option value="Qalyubia">Qalyubia</option>
+                                        </select>
+                                        <span asp-validation-for="Governorate" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label asp-for="District" class="form-label"></label>
+                                        <input asp-for="District" class="form-control" required>
+                                        <span asp-validation-for="District" class="text-danger"></span>
+                                    </div>
+                                </div>
+								<div class="ِArea">
+									<label asp-for="Area" class="form-label"></label>
+									<input asp-for="Area" class="form-control" required>
+									<span asp-validation-for="Area" class="text-danger"></span>
+								</div>
+
+                                <div class="mb-3">
+                                    <label asp-for="IsAgree" class="form-check-label">
+                                        <input asp-for="IsAgree" class="form-check-input" required>
+                                        I agree to the <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">Terms and Conditions</a>
+                                    </label>
+                                    <span asp-validation-for="IsAgree" class="text-danger"></span>
+                                </div>
+
+                                
+
+
+                                <div class="d-grid mt-4">
+                                    <button type="submit" class="btn btn-primary btn-lg">
+                                        <i class="bi bi-person-plus me-2"></i>
+                                        Register Pharmacy
+                                    </button>
+                                </div>
+                            </form>
+                            <div class="text-center mt-4">
+                                <p>Already have an account? <a asp-action="SignIn">Login here</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
