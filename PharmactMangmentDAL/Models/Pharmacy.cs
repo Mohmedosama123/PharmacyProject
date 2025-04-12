@@ -80,8 +80,6 @@ namespace PharmactMangmentDAL.Models
 
         public ICollection<Med_Phar> Med_Phars { get; set; } = new HashSet<Med_Phar>();
 
-        public ICollection<Medication> Medications { get; set; } = new HashSet<Medication>();
-
 
         public string ImageName { get; set; }= "default.png"; // اسم الصورة الافتراضية
 

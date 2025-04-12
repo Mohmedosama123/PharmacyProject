@@ -24,13 +24,6 @@ namespace PharmactMangmentDAL.Data.Contexts
         {
             base.OnModelCreating(modelBuilder);
 
-            // 🔹 تعريف العلاقة بين `Medication` و `Pharmacy`
-            modelBuilder.Entity<Medication>()
-                .HasMany(m => m.Med_Phars)
-                .WithOne(p => p.medican)
-                .HasForeignKey(m => m.MedicationId)
-                .OnDelete(DeleteBehavior.Cascade); // عند حذف الصيدلية، تُحذف الأدوية المرتبطة بها
-
 
             modelBuilder.Entity<Pharmacy>()
                .HasMany(m => m.Med_Phars)

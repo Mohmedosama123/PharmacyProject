@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace PharmactMangmentDAL.Models
 {
@@ -24,11 +19,5 @@ namespace PharmactMangmentDAL.Models
         public string Category { get; set; }
 
         public string ImageName { get; set; }
-
-        //public DateTime LastUpdated { get; set; } = DateTime.UtcNow;
-        //public DateTime CreatAt { get; set; }
-
-
-        public ICollection<Med_Phar> Med_Phars { get; set; } = new HashSet<Med_Phar>();
     }
 }
