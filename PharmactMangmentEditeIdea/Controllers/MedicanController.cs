@@ -114,6 +114,8 @@ namespace PharmactMangmentEditeIdea.Controllers
         //#endregion
 
         // Keep your existing GET action
+
+
         [HttpGet]
         public IActionResult Dashbord()
         {
@@ -167,6 +169,7 @@ namespace PharmactMangmentEditeIdea.Controllers
                         {
                             MedicationId = medicationId,
                             PharmacyId = pharmacy.Id,
+                            // Set default values for Quantity and InStock until handel in view
                             Quantity = 1,
                             InStock = true
                         };

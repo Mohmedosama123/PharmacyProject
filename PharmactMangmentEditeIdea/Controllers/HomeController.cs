@@ -32,6 +32,8 @@ namespace PharmactMangmentEditeIdea.Controllers
 
         [HttpGet]
         [Route("search")]
+
+
         public IActionResult SearshAboutMedican()
         {
             return View();

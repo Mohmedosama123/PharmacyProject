@@ -5,6 +5,8 @@ using PharmactMangmentDAL.Data.Contexts;
 using PharmactMangmentDAL.Models;
 using PharmactMangmentEditeIdea.ViewModel;
 using PharmactMangmentEditeIdea.HelperMethod;
+using Microsoft.EntityFrameworkCore;
+using PharmactMangmentEditeIdea.HelperImage;
 
 namespace PharmactMangmentEditeIdea.Controllers
 {
@@ -133,6 +135,7 @@ namespace PharmactMangmentEditeIdea.Controllers
 
         #region SingOut
         // new for hide the signout from the user
+
         public new async Task<IActionResult> SignOut()
         {
             await _signInManager.SignOutAsync();
@@ -178,10 +181,15 @@ namespace PharmactMangmentEditeIdea.Controllers
                     var flag = EmailSettings.SendEmail(email);
                     if (flag)
                     {
-                        // can creat popup hire
-                        //Check Your Email Inbox
-                        return RedirectToAction("CheckYourInbox");
+                       
+                        TempData["ResetMessage"] = "تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني. من فضلك افحص البريد.";
+                        return RedirectToAction("ForgetPassword");
+                       
+
+                        //TempData["SuccessMessage"] = "Check your email to reset your password.";
+                        //return RedirectToAction("ForgetPassword");
                     }
+
                 }
 
             }
@@ -224,17 +232,6 @@ namespace PharmactMangmentEditeIdea.Controllers
         //    return View("ForgetPassword", model);
         //    //return View();
         //}
-
-        #endregion
-
-
-        #region Check Your Inbox
-
-        [HttpGet]
-        public IActionResult CheckYourInbox()
-        {
-            return View();
-        }
 
         #endregion
 
@@ -288,6 +285,113 @@ namespace PharmactMangmentEditeIdea.Controllers
             }
             return View();
         }
+
+        #endregion
+
+
+
+        #region Profile
+        [HttpGet]
+        public async Task<IActionResult> Profile()
+        {
+            var user = await _userManager.GetUserAsync(User); // المستخدم الحالي
+
+            if (user == null)
+                return RedirectToAction("Login", "Account");
+            var model = new EditProfileViewModel()
+            {
+                Email = user.Email,
+                NameOfPharmacy = user.NameOfPharmacy,
+                OwnerName = user.OwnerName,
+                License_Number = user.License_Number,
+                PhoneNumber = user.PhoneNumber,
+                OperatingHours = user.OperatingHours,
+                FullAddress = user.FullAddress,
+                Governorate = user.Governorate,
+                District = user.District,
+                Area = user.Area,
+                ImageName = user.ImageName,
+            };
+            
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Profile(EditProfileViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+
+                var user = await _userManager.GetUserAsync(User); // المستخدم الحالي
+
+                if (user == null)
+                    return RedirectToAction("Login", "Account");
+
+
+
+                // تحقق من وجود صورة جديدة
+                if (model.ImageName is not null && model.Image is not null)
+                {
+                    // delet image
+                    DecumentSettings.DeleteImage("Images", model.ImageName);
+                }
+
+                if (model.Image is not null)
+                {
+                    // save image
+                    model.ImageName = DecumentSettings.UploadImage(model.Image, "Images");
+                }
+
+
+
+                // تحديث بيانات المستخدم (ApplicationUser)
+                user.Email = model.Email;
+                user.NameOfPharmacy = model.NameOfPharmacy;
+                user.OwnerName = model.OwnerName;
+                user.License_Number = model.License_Number;
+                user.PhoneNumber = model.PhoneNumber;
+                user.OperatingHours = model.OperatingHours;
+                user.FullAddress = model.FullAddress;
+                user.Governorate = model.Governorate;
+                user.District = model.District;
+                user.Area = model.Area;
+                user.ImageName = model.ImageName;
+
+                // حدث جدول ال AppUser
+                await _userManager.UpdateAsync(user); // ده مهم جدًا لتحديث البيانات
+
+                // تحديث بيانات الصيدلية المرتبطة
+                var pharmacy = await _dbContext.Pharmacies.FirstOrDefaultAsync(p => p.userId == user.Id);
+
+                if (pharmacy != null)
+                {
+                    pharmacy.Email = model.Email;
+                    pharmacy.NameOfPharmacy = model.NameOfPharmacy;
+                    pharmacy.OwnerName = model.OwnerName;
+                    pharmacy.License_Number = model.License_Number;
+                    pharmacy.PhoneNumber = model.PhoneNumber;
+                    pharmacy.OperatingHours = model.OperatingHours;
+                    pharmacy.FullAddress = model.FullAddress;
+                    pharmacy.Governorate = model.Governorate;
+                    pharmacy.District = model.District;
+                    pharmacy.Area = model.Area;
+                    pharmacy.ImageName = model.ImageName="jcjvhvj";
+
+                    // حفظ التغييرات في جدول الصيدلية
+                    _dbContext.Update(pharmacy);
+                    await _dbContext.SaveChangesAsync();
+                }
+
+                TempData["Success"] = "Profile updated successfully.";
+                return RedirectToAction("Profile");
+
+            }
+            return View(model);
+        }
+
+
+
+
 
         #endregion
 
