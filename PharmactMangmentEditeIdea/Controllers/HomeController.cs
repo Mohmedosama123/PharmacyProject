@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor.Compilation;
 using PharmactMangmentEditeIdea.Models;
+using PharmactMangmentEditeIdea.ViewModel;
 
 namespace PharmactMangmentEditeIdea.Controllers
 {
@@ -31,12 +32,147 @@ namespace PharmactMangmentEditeIdea.Controllers
         }
 
         [HttpGet]
-        [Route("search")]
-
-
-        public IActionResult SearshAboutMedican()
+        public IActionResult SearchAboutMedicine()
         {
-            return View();
+            return View(new SrearchAboutMedicineDto());
+        }
+
+        [HttpPost]
+        public IActionResult SearchAboutMedicine(SrearchAboutMedicineDto dto)
+        {
+            dto.MedicineList.Add(new MedicineListDto
+            {
+                MedicineImg = "test",
+                MedicineName = "Test",
+                PharmacyBaseAddress = "test",
+                PharmacyName = "test",
+                PharmacyOpenningHours = "test",
+                PharmacyPhoneNumber = "test",
+                PharmacySecondaryAddress = "test",
+
+            });
+            dto.MedicineList.Add(new MedicineListDto
+            {
+                MedicineImg = "test",
+                MedicineName = "Test",
+                PharmacyBaseAddress = "test",
+                PharmacyName = "test",
+                PharmacyOpenningHours = "test",
+                PharmacyPhoneNumber = "test",
+                PharmacySecondaryAddress = "test",
+
+            });
+            dto.MedicineList.Add(new MedicineListDto
+            {
+                MedicineImg = "test",
+                MedicineName = "Test",
+                PharmacyBaseAddress = "test",
+                PharmacyName = "test",
+                PharmacyOpenningHours = "test",
+                PharmacyPhoneNumber = "test",
+                PharmacySecondaryAddress = "test",
+
+            });
+            dto.MedicineList.Add(new MedicineListDto
+            {
+                MedicineImg = "test",
+                MedicineName = "Test",
+                PharmacyBaseAddress = "test",
+                PharmacyName = "test",
+                PharmacyOpenningHours = "test",
+                PharmacyPhoneNumber = "test",
+                PharmacySecondaryAddress = "test",
+
+            });
+            dto.MedicineList.Add(new MedicineListDto
+            {
+                MedicineImg = "test",
+                MedicineName = "Test",
+                PharmacyBaseAddress = "test",
+                PharmacyName = "test",
+                PharmacyOpenningHours = "test",
+                PharmacyPhoneNumber = "test",
+                PharmacySecondaryAddress = "test",
+
+            });
+            dto.MedicineList.Add(new MedicineListDto
+            {
+                MedicineImg = "test",
+                MedicineName = "Test",
+                PharmacyBaseAddress = "test",
+                PharmacyName = "test",
+                PharmacyOpenningHours = "test",
+                PharmacyPhoneNumber = "test",
+                PharmacySecondaryAddress = "test",
+
+            });
+            dto.MedicineList.Add(new MedicineListDto
+            {
+                MedicineImg = "test",
+                MedicineName = "Test",
+                PharmacyBaseAddress = "test",
+                PharmacyName = "test",
+                PharmacyOpenningHours = "test",
+                PharmacyPhoneNumber = "test",
+                PharmacySecondaryAddress = "test",
+
+            });
+            dto.MedicineList.Add(new MedicineListDto
+            {
+                MedicineImg = "test",
+                MedicineName = "Test",
+                PharmacyBaseAddress = "test",
+                PharmacyName = "test",
+                PharmacyOpenningHours = "test",
+                PharmacyPhoneNumber = "test",
+                PharmacySecondaryAddress = "test",
+
+            });
+            dto.MedicineList.Add(new MedicineListDto
+            {
+                MedicineImg = "test",
+                MedicineName = "Test",
+                PharmacyBaseAddress = "test",
+                PharmacyName = "test",
+                PharmacyOpenningHours = "test",
+                PharmacyPhoneNumber = "test",
+                PharmacySecondaryAddress = "test",
+
+            });
+            dto.MedicineList.Add(new MedicineListDto
+            {
+                MedicineImg = "test",
+                MedicineName = "Test",
+                PharmacyBaseAddress = "test",
+                PharmacyName = "test",
+                PharmacyOpenningHours = "test",
+                PharmacyPhoneNumber = "test",
+                PharmacySecondaryAddress = "test",
+
+            });
+            dto.MedicineList.Add(new MedicineListDto
+            {
+                MedicineImg = "test",
+                MedicineName = "Test",
+                PharmacyBaseAddress = "test",
+                PharmacyName = "test",
+                PharmacyOpenningHours = "test",
+                PharmacyPhoneNumber = "test",
+                PharmacySecondaryAddress = "test",
+
+            });
+            dto.MedicineList.Add(new MedicineListDto
+            {
+                MedicineImg = "test",
+                MedicineName = "Test",
+                PharmacyBaseAddress = "test",
+                PharmacyName = "test",
+                PharmacyOpenningHours = "test",
+                PharmacyPhoneNumber = "test",
+                PharmacySecondaryAddress = "test",
+
+            });
+            return View(dto);
         }
     }
 }

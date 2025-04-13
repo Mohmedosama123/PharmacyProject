@@ -1,0 +1,143 @@
+﻿@model SrearchAboutMedicineDto
+
+@{
+    ViewData["Title"] = "SearshAboutMedican";
+}
+
+<main class="flex-grow-1">
+    <div class="container py-4 py-md-5">
+        <div class="search-container">
+            <!-- Hero section with search form -->
+            <div class="search-hero mb-5 rounded-3 shadow-lg">
+                <div class="position-relative z-10">
+                    <div class="animate-fade-in-down">
+                        <h1 class="h2 mb-2 text-white">Find Your Medications</h1>
+                        <p class="text-white-muted mb-4">
+                            Search for medications by name and location to find pharmacies that have what you need.
+                        </p>
+                    </div>
+
+                    <div class="search-form-container animate-fade-in-up">
+                        <form method="post" asp-action="SearchAboutMedicine" class="search-form bg-white-10 backdrop-blur-sm border-white-20 rounded-3 p-4">
+                            <div class="mb-3">
+                                <label for="medication" class="form-label text-white d-flex align-items-center">
+                                    <i class="bi bi-capsule me-2"></i>
+                                    Medication Name
+                                </label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="medication" name="medication" placeholder="Enter medication name">
+                                    <button type="button" class="btn btn-outline-light" id="voice-search-btn">
+                                        <i class="bi bi-mic"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6 mb-3 mb-md-0">
+                                    <label asp-for="Govornorate" class="form-label text-white d-flex align-items-center">
+                                        <i class="bi bi-geo-alt me-2"></i>
+                                        Governorate
+                                    </label>
+                                    <input asp-for="Govornorate" class="form-control" id="governorate" placeholder="Search In Governorates" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label asp-for="District" class="form-label text-white d-flex align-items-center">
+                                        <i class="bi bi-geo-alt me-2"></i>
+                                        District
+                                    </label>
+                                    <input asp-for="District" class="form-control" id="district" placeholder="Search In District" />
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Area" class="form-label text-white d-flex align-items-center">
+                                    <i class="bi bi-geo-alt me-2"></i>
+                                    Center/Area
+                                </label>
+                                <input asp-for="Area" class="form-control" id="area" placeholder="Search In Center/Area" />
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="bi bi-search me-2"></i>
+                                Search
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search results section -->
+            <div class="search-results animate-fade-in-up">
+
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2>Search Results</h2>
+                    <div class="view-toggle">
+                        <button id="grid-view" class="btn active">
+                            <i class="bi bi-grid-3x3-gap-fill"></i>
+                        </button>
+                        <button id="list-view" class="btn">
+                            <i class="bi bi-list-ul"></i>
+                        </button>
+                    </div>
+                </div>
+
+                @if (Model.MedicineList?.Count > 0)
+                {
+                    <div class="row g-4">
+
+                        @foreach (var medicine in Model.MedicineList)
+                        {
+                            <!-- Pharmacy Card-->
+                            <div class="col-md-6 col-lg-4 animate-on-scroll" data-delay="100">
+                                <div class="card pharmacy-card h-100 shadow-sm">
+                                    <div class="medication-img mb-1">
+                                        <img src="Annotation 2024-12-22 150616.png" alt="Paracetamol" class="img-fluid rounded">
+                                    </div>
+                                    <div class="card-header position-relative pb-2">
+                                        <div class="position-relative">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h3 class="h5 mb-0">@medicine.PharmacyName</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body pb-2">
+                                        <div class="mb-3">
+                                            <div class="d-flex mb-2">
+                                                <i class="bi bi-geo-alt text-primary me-2 mt-1"></i>
+                                                <div>
+                                                    <p class="mb-0 fw-medium">@medicine.PharmacyBaseAddress</p>
+                                                    <p class="text-muted small mb-0">
+                                                        @medicine.PharmacySecondaryAddress
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex mb-2">
+                                                <i class="bi bi-telephone text-primary me-2"></i>
+                                                <p class="mb-0">@medicine.PharmacyPhoneNumber</p>
+                                            </div>
+                                            <div class="d-flex mb-2">
+                                                <i class="bi bi-clock text-primary me-2"></i>
+                                                <p class="mb-0">@medicine.PharmacyOpenningHours</p>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="card-footer bg-light">
+                                        <a href="tel:+201237894560" class="btn btn-primary w-100">
+                                            <i class="bi bi-telephone me-2"></i>
+                                            Contact Pharmacy
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+
+</main>
