@@ -9,11 +9,11 @@
         <h1 class="display-4 fw-bold mb-4">Find Your Medication Quickly and Easily</h1>
         <p class="lead mb-5">Search for medications at nearby pharmacies in your area</p>
         <div class="d-flex justify-content-center gap-3">
-            <a href="search.html" class="btn btn-primary btn-lg">
+            <a asp-action="SearchAboutMedicine" asp-controller="Home" class="btn btn-primary btn-lg">
                 <i class="bi bi-search me-2"></i>
                 Search Medications
             </a>
-            <a href="pharmacy-login.html" class="btn btn-outline-light btn-lg">
+            <a asp-action="SignIn" asp-controller="Account" class="btn btn-outline-light btn-lg">
                 <i class="bi bi-shop me-2"></i>
                 I'm a Pharmacy
             </a>
@@ -162,7 +162,7 @@
             </div>
         </div>
         <div class="text-center mt-4">
-            <a href="pharmacy-register.html" class="btn btn-primary">
+            <a asp-action="SignUp" asp-controller="Account" class="btn btn-primary">
                 <i class="bi bi-person-plus me-2"></i>
                 Register Your Pharmacy
             </a>
@@ -175,7 +175,7 @@
     <div class="container text-center">
         <h2 class="fw-bold mb-3">Ready to find your medication?</h2>
         <p class="mb-4">Start searching now to find medications at pharmacies near you</p>
-        <a href="search.html" class="btn btn-light btn-lg">
+        <a asp-action="SearchAboutMedicine" asp-controller="Home" class="btn btn-light btn-lg">
             <i class="bi bi-search me-2"></i>
             Search Medications
         </a>
