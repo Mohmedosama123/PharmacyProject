@@ -49,7 +49,7 @@
                   <h5 class="mb-0">Medications</h5>
                   <div class="input-group" style="max-width: 300px;">
                     <span class="input-group-text"><i class="bi bi-search"></i></span>
-                    <input type="text" class="form-control" id="medicationSearch" placeholder="Search medications...">
+                    <input type="text" class="form-control" id="medicationSearch" placeholder="Search medications..."/>
                   </div>
                 </div>
 
@@ -75,8 +75,17 @@
                                    <tr>
                                        <td>
                                            <div class="medication-img-sm">
-                                                        <img src="@Url.Content("~/Images/" + (string.IsNullOrEmpty(user.ImageName) ? "OIP.jpg" : user.ImageName))" alt="@user.ImageName" class="img-fluid rounded">
-                                                        @* <img src="/" alt="@user.ImageName" class="img-fluid rounded">  *@
+                                               @* @var name = $"{@user.ImageName}" *@
+                                               
+                                                            @* <img src="~/Images/" alt="@user.ImageName" class="img-fluid rounded"> *@
+
+                                                            @* <img src="@Url.Content($"~/Images/{user.ImageName}")" alt="@user.ImageName" class="img-fluid rounded" /> *@
+
+                                             
+                                                            <img src="~/Images/System.Func`1[System.Guid]Annotation 2024-12-22 150616.png" alt="@user.ImageName" class="img-fluid rounded" />
+
+                                              
+                                                        @* <img src="~/Images/System.Func`1[System.Guid]123.jpg" alt="@user.ImageName" class="img-fluid rounded">   *@
                                            </div>
                                        </td>
                                        <td>@user.UserName</td>

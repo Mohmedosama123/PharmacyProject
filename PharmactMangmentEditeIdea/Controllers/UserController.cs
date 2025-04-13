@@ -28,7 +28,7 @@ namespace PharmactMangmentEditeIdea.Controllers
                 NameOfPharmacy = U.NameOfPharmacy,
                 Email = U.Email,
                 Roles = _userManager.GetRolesAsync(U).Result,
-                ImageName = string.IsNullOrEmpty(U.ImageName) ? "OIP.jpg" : U.ImageName, // ✅ تعيين الصورة الافتراضية
+                ImageName = string.IsNullOrEmpty(U.ImageName) ? "OIP.png" : U.ImageName, // ✅ تعيين الصورة الافتراضية
 
             }).ToList();
 
