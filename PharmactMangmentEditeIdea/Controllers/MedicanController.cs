@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using PharmactMangmentBLL.Interfaces;
 using PharmactMangmentDAL.Data.Contexts;
 using PharmactMangmentDAL.Models;
+using PharmactMangmentEditeIdea.ViewModel;
 
 namespace PharmactMangmentEditeIdea.Controllers
 {
