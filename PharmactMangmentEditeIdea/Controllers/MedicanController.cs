@@ -20,6 +20,7 @@ namespace PharmactMangmentEditeIdea.Controllers
             this.ofWork = ofWork;
         }
 
+        #region dashpord
 
         //#region MyRegion
         //[HttpGet]
@@ -117,16 +118,21 @@ namespace PharmactMangmentEditeIdea.Controllers
 
 
         [HttpGet]
-        public IActionResult Dashbord()
+        public IActionResult DashbordForAddMedican()
         {
             IEnumerable<Medication> x = _dbContext.Medications.ToList();
             return View(x);
         }
 
+
+        #endregion
+
+
+
         // Update the POST action to accept an array of medication IDs
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Dashbord(List<int> medicationIds)
+        public async Task<IActionResult> DashbordForAddMedican(List<int> medicationIds)
         {
             if (medicationIds == null || !medicationIds.Any())
             {
@@ -201,14 +207,7 @@ namespace PharmactMangmentEditeIdea.Controllers
         }
 
 
-
-
-
-
-
-
-
-
+        #region MyRegion
 
         [HttpGet]
         public async Task<IActionResult> AllMedicationsForPharmacy()
@@ -227,7 +226,8 @@ namespace PharmactMangmentEditeIdea.Controllers
                 .ToListAsync();
 
             return View(medications);
-        }
+        } 
+        #endregion
 
     }
 }

@@ -122,7 +122,7 @@ namespace PharmactMangmentEditeIdea.Controllers
                         var result = await _signInManager.PasswordSignInAsync(user, signInView.Password, signInView.RememberMe ?? false, false);
                         if (result.Succeeded)
                         {
-                            return RedirectToAction("Dashbord", "Medican");
+                            return RedirectToAction("AllMedicationsForPharmacy", "Medican");
                         }
                     }
                 }
