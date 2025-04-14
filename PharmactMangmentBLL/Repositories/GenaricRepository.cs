@@ -26,10 +26,10 @@ namespace PharmactMangmentBLL.Repositories
             return await _PharmaceDb.Set<T>().ToListAsync();
         }
 
-        //public async Task<T?> GetMedicanAbyIdAsync(int id)
-        //{
-        //    return await _PharmaceDb.Set<T>().FindAsync(id);
-        //}
+        public async Task<T?> GetMedicanAbyIdAsync(int id)
+        {
+            return await _PharmaceDb.Set<T>().FindAsync(id);
+        }
 
         public async Task AddPharmacyAsync(T medican)
         {
@@ -37,16 +37,16 @@ namespace PharmactMangmentBLL.Repositories
 
         }
 
-        //public async Task UpdateMedican(T medican)
-        //{
-        //    _PharmaceDb.Set<T>().Update(medican);
-        //}
+        public async Task UpdateMedican(T medican)
+        {
+            _PharmaceDb.Set<T>().Update(medican);
+        }
 
-        //public async Task DeleteMedican(T medican)
-        //{
-        //    _PharmaceDb.Set<T>().Remove(medican);
-        //}
+        public async Task DeleteMedican(T medican)
+        {
+            _PharmaceDb.Set<T>().Remove(medican);
+        }
 
-       
+
     }
 }

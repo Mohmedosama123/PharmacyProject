@@ -142,25 +142,27 @@ namespace PharmactMangmentEditeIdea.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete([FromRoute] string? id, UserToReturnViewModel userToReturnDTO)
         {
-            if (ModelState.IsValid)
-            {
-                if (id != userToReturnDTO.Id) return BadRequest("Invalid Operation");
+                if (string.IsNullOrEmpty(id)) return BadRequest("Invalid Id");
                 var user = await _userManager.FindByIdAsync(id);
-                if (user == null) return BadRequest("Invalid Operation");
+                if (user == null) return NotFound();
 
-                user.UserName = userToReturnDTO.UserName;
-                user.NameOfPharmacy = userToReturnDTO.NameOfPharmacy;
-                user.OwnerName = userToReturnDTO.OwnerName;
-                user.Email = userToReturnDTO.Email;
-
-                var result = await _userManager.UpdateAsync(user);
+                var result = await _userManager.DeleteAsync(user);
                 if (result.Succeeded)
                 {
                     return RedirectToAction(nameof(Index));
                 }
-                    
-                }
-                return View(userToReturnDTO);
+
+                return View("Index", _userManager.Users.Select(u => new UserToReturnViewModel
+                {
+                    Id = u.Id,
+                    UserName = u.UserName,
+                    OwnerName = u.OwnerName,
+                    NameOfPharmacy = u.NameOfPharmacy,
+                    Email = u.Email,
+                    ImageName = u.ImageName
+                }));
+            
+
         }
 
     }
