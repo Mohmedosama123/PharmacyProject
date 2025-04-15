@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using PharmactMangmentBLL.Interfaces;
 using PharmactMangmentDAL.Data.Contexts;
 using PharmactMangmentDAL.Models;
+using PharmactMangmentEditeIdea.HelperImage;
 using PharmactMangmentEditeIdea.ViewModel;
 
 namespace PharmactMangmentEditeIdea.Controllers
@@ -19,6 +20,86 @@ namespace PharmactMangmentEditeIdea.Controllers
             _dbContext = dbContext;
             _userManager = userManager;
             this.ofWork = ofWork;
+        }
+
+        [HttpGet]
+        public IActionResult Index()
+        {
+            var result = _dbContext.Medications.ToList();
+            return View(result);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(CreateMedicationDto model)
+        {
+            string? imgName = null;
+            if (model.Image is not null)
+            {
+                imgName = DecumentSettings.UploadImage(model.Image, "Images/Medications");
+            }
+
+            _dbContext.Medications.Add(new Medication
+            {
+                Category = model.Category,
+                Description = model.Description,
+                ImageName = imgName,
+                Name = model.Name,
+                Price = model.Price,  
+            });
+            _dbContext.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var medication = _dbContext.Medications.Find(id);
+
+            if (medication == null)
+                return View("Medication not found!");
+
+            return View(new EditMedicationDto
+            {
+                Id = id,
+                Category = medication.Category,
+                Description = medication.Description,
+                ImageName = medication.ImageName,
+                Name = medication.Name,
+                Price = medication.Price,
+            });
+        }
+
+        [HttpPost]
+        public IActionResult Edit(EditMedicationDto model)
+        {
+            var medication = _dbContext.Medications.Find(model.Id);
+
+            if (medication == null)
+                return View("Medication not found!");
+
+            string? imgName = null;
+            if (model.Image is not null)
+            {
+                if (!string.IsNullOrEmpty(model.ImageName))
+                    DecumentSettings.DeleteImage("Images/Medications", model.ImageName);
+                imgName = DecumentSettings.UploadImage(model.Image, "Images/Medications");
+            }
+
+            medication.Description = model.Description;
+            medication.ImageName = imgName ?? medication.ImageName;
+            medication.Name = model.Name;
+            medication.Price = model.Price;
+            medication.Category = model.Category;
+
+            _dbContext.Update(medication);
+            _dbContext.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         #region dashpord

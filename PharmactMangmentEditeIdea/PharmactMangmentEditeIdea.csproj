@@ -22,4 +22,8 @@
     <ProjectReference Include="..\PharmactMangmentBLL\PharmactMangmentBLL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Images\Profiles\" />
+  </ItemGroup>
+
 </Project>

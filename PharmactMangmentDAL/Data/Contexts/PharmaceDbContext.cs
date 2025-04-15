@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PharmactMangmentDAL.Models;
 
@@ -19,6 +13,7 @@ namespace PharmactMangmentDAL.Data.Contexts
 
         public DbSet<Pharmacy> Pharmacies { get; set; }
         public DbSet<Medication> Medications { get; set; }
+        public DbSet<Med_Phar> Med_Phars { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -33,14 +28,14 @@ namespace PharmactMangmentDAL.Data.Contexts
 
             modelBuilder.Entity<Med_Phar>().HasKey(mp => new { mp.MedicationId, mp.PharmacyId });
 
-
-
-
             modelBuilder.Entity<Pharmacy>()
                 .HasOne<AppUser>()
                 .WithOne()
                 .HasForeignKey<Pharmacy>(p => p.userId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Medication>()
+                .Property(x => x.ImageName).IsRequired(false);
 
         }
 

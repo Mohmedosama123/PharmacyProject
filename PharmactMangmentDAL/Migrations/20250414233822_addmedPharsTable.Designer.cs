@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PharmactMangmentDAL.Data.Contexts;
 
@@ -11,9 +12,11 @@ using PharmactMangmentDAL.Data.Contexts;
 namespace PharmactMangmentDAL.Migrations
 {
     [DbContext(typeof(PharmaceDbContext))]
-    partial class PharmaceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250414233822_addmedPharsTable")]
+    partial class addmedPharsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -306,6 +309,7 @@ namespace PharmactMangmentDAL.Migrations
                         .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("ImageName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
