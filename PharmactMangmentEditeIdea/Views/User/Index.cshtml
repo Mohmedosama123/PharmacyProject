@@ -9,47 +9,35 @@
 
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4">
             <div>
-                <h1 class="h2 mb-1">Pharmacy Dashboard</h1>
-                <p class="text-muted">Manage your medications and pharmacy information</p>
+                <h1 class="h2 mb-1">Admin Dashboard</h1>
+                <p class="text-muted">Manage your All User information</p>
             </div>
-            <a href="index.html" class="btn btn-outline-primary">
-                <i class="bi bi-box-arrow-right me-1"></i>
-                Log Out
-            </a>
+          
         </div>
 
 
         <ul class="nav nav-tabs mb-4" id="pharmacyTabs" role="tablist">
             <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="medications-tab" data-bs-toggle="tab" data-bs-target="#medications-tab-pane" type="button" role="tab" aria-controls="medications-tab-pane" aria-selected="true">
-                    Medications
+                    All User
                 </button>
             </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="add-tab" data-bs-toggle="tab" data-bs-target="#add-tab-pane" type="button" role="tab" aria-controls="add-tab-pane" aria-selected="false">
-                    Add Medication
-                </button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">
-                    Pharmacy Profile
-                </button>
-            </li>
+            
         </ul>
 
 
 
         <div class="tab-content" id="pharmacyTabsContent">
 
-            <!-- all Medican -->
+            <!-- all User -->
             <div class="tab-pane fade show active" id="medications-tab-pane" role="tabpanel" aria-labelledby="medications-tab" tabindex="0">
               <div class="card">
 
                 <div class="card-header bg-white d-flex justify-content-between align-items-center">
-                  <h5 class="mb-0">Medications</h5>
+                  <h5 class="mb-0">Information Of All User</h5>
                   <div class="input-group" style="max-width: 300px;">
                     <span class="input-group-text"><i class="bi bi-search"></i></span>
-                    <input type="text" class="form-control" id="medicationSearch" placeholder="Search medications...">
+                    <input type="text" class="form-control" id="medicationSearch" placeholder="Search About User..."/>
                   </div>
                 </div>
 
@@ -75,8 +63,14 @@
                                    <tr>
                                        <td>
                                            <div class="medication-img-sm">
-                                                        <img src="@Url.Content("~/Images/" + (string.IsNullOrEmpty(user.ImageName) ? "OIP.jpg" : user.ImageName))" alt="@user.ImageName" class="img-fluid rounded">
-                                                        @* <img src="/" alt="@user.ImageName" class="img-fluid rounded">  *@
+                                               @if(user.ImageName is not null )
+                                               {
+                                                    <img src="~/Images/@user.ImageName" alt="@user.ImageName" class="img-fluid rounded"> 
+                                               }
+                                               else
+                                               {
+                                                    <img src="~/OIP.png" alt="@user.ImageName" class="img-fluid rounded" />
+                                               }
                                            </div>
                                        </td>
                                        <td>@user.UserName</td>
@@ -88,10 +82,16 @@
                                                <i class="bi bi-pencil me-1"></i>
                                                Edit
                                            </a>
-                                           <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteMedicationModal" data-medication-id="1" data-medication-name="Paracetamol">
-                                               <i class="bi bi-trash me-1"></i>
-                                               Delete
-                                           </button>
+                                            <a href="#"
+                                               class="btn btn-sm btn-outline-danger"
+                                               data-bs-toggle="modal"
+                                               data-bs-target="#deleteUserModal"
+                                               data-user-id="@user.Id"
+                                               data-user-name="@user.UserName">
+                                                <i class="bi bi-trash me-1"></i>
+                                                Delete
+                                            </a>
+
                                        </td>
                                    </tr>
                                }
@@ -116,4 +116,42 @@
 
         </div>
     </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content border-danger">
+                <form method="post" id="deleteForm">
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title" id="deleteUserModalLabel">Confirm Deletion</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to delete <strong id="userNameToDelete"></strong>?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 </main>
+<script>
+    const deleteUserModal = document.getElementById('deleteUserModal');
+    deleteUserModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        const userId = button.getAttribute('data-user-id');
+        const userName = button.getAttribute('data-user-name');
+
+        const form = document.getElementById('deleteForm');
+        const userNameSpan = document.getElementById('userNameToDelete');
+
+        userNameSpan.textContent = userName;
+
+        // set action to POST delete
+        form.action = `/User/Delete/${userId}`;
+    });
+</script>

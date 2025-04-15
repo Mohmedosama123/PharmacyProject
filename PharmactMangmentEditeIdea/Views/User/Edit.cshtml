@@ -55,7 +55,17 @@
                         <div class="d-flex flex-column align-items-center">
                             <div class="position-relative medication-upload-container mb-2">
                                 <div class="medication-upload-preview" id="imagePreview">
-                                    <img src="@Url.Content("~/Images/" + (string.IsNullOrEmpty(Model.ImageName) ? "OIP.jpg" : Model.ImageName))" ... />
+                                    @* <img src="@Url.Content("~/Images/" + (string.IsNullOrEmpty(Model.ImageName) ? "OIP.jpg" : Model.ImageName))" ... /> *@
+                                    @if (Model.ImageName is not null)
+                                    {
+                                        <img src="~/Images/ImageName" alt="ImageName" class="img-fluid rounded" />
+
+                                    }
+                                    else
+                                    {
+                                        <img src="~/OIP.png" alt="Photo" class="img-fluid rounded" />
+
+                                    }
                                 </div>
                                 <input asp-for="Image" type="file" class="form-control visually-hidden" id="ImageFile" accept="image/*">
                             </div>
