@@ -14,7 +14,7 @@
             <div class="card-body">
                 <form asp-action="Profile" method="post" enctype="multipart/form-data">
 
-                    <input asp-for="ImageName" type="hidden" id="Id"  />
+                    <input asp-for="ImageName" type="hidden" id="Id" />
 
 
 
@@ -22,20 +22,20 @@
                     <div class="text-center mb-4">
                         <div class="position-relative d-inline-block">
                             <div class="pharmacy-image-container editable">
-                                <img src="@Url.Content("~/Images/" + (string.IsNullOrEmpty(Model.ImageName) ? "OIP.jpg" : Model.ImageName))" alt="Model.ImageName" class="rounded-circle img-thumbnail" style="width: 150px; height: 150px; object-fit: cover;">
+                                <img src="@Url.Content("~/Images/" + (string.IsNullOrEmpty(Model.ImageName) ? "default-avatar.jpg" : $"Profiles/{Model.ImageName}"))" alt="Model.ImageName" class="rounded-circle img-thumbnail" style="width: 150px; height: 150px; object-fit: cover;">
                                 <div class="pharmacy-image-overlay" id="triggerFileUpload">
                                     <i class="bi bi-camera fs-3"></i>
                                 </div>
-                                <input asp-for="Image"  type="file" id="profileImage" class="visually-hidden"  />
+                                <input asp-for="Image" type="file" id="profileImage" class="visually-hidden" />
                             </div>
                         </div>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="NameOfPharmacy"  class="form-label">Pharmacy Name</label>
+                        <label asp-for="NameOfPharmacy" class="form-label">Pharmacy Name</label>
                         <input asp-for="NameOfPharmacy" type="text" class="form-control" id="Name">
                     </div>
-                    
+
                     <div class="mb-3">
                         <label asp-for="OwnerName" class="form-label">Owner Name </label>
                         <input asp-for="OwnerName" type="text" class="form-control" id="Name">
@@ -44,12 +44,12 @@
                     <div class="row mb-3">
                         <div class="col-md-6 mb-3 mb-md-0">
                             <label asp-for="Email" class="form-label">Email</label>
-                            <input asp-for="Email" type="email" class="form-control" id="Email" >
+                            <input asp-for="Email" type="email" class="form-control" id="Email">
                         </div>
 
                         <div class="col-md-6">
                             <label asp-for="PhoneNumber" class="form-label">Phone</label>
-                            <input asp-for="PhoneNumber" type="tel" class="form-control" id="Phone" >
+                            <input asp-for="PhoneNumber" type="tel" class="form-control" id="Phone">
                         </div>
                     </div>
 
@@ -61,11 +61,11 @@
                     <div class="row mb-3">
                         <div class="col-md-6 mb-3 mb-md-0">
                             <label asp-for="Governorate" class="form-label">Governorate</label>
-                            <input asp-for="Governorate" class="form-control" id="governorate" >
+                            <input asp-for="Governorate" class="form-control" id="governorate">
                         </div>
                         <div class="col-md-6">
                             <label asp-for="District" class="form-label">District</label>
-                            <input asp-for="District" class="form-control" id="district" >
+                            <input asp-for="District" class="form-control" id="district">
                         </div>
                     </div>
 
@@ -76,12 +76,12 @@
 
                     <div class="mb-3">
                         <label asp-for="OperatingHours" class="form-label">Opening Hours</label>
-                        <input asp-for="OperatingHours" class="form-control" id="OpeningHours" >
+                        <input asp-for="OperatingHours" class="form-control" id="OpeningHours">
                     </div>
-                    
+
                     <div class="mb-3">
                         <label asp-for="License_Number" class="form-label">License Number</label>
-                        <input asp-for="License_Number" class="form-control" id="OpeningHours" >
+                        <input asp-for="License_Number" class="form-control" id="OpeningHours">
                     </div>
 
                     <div class="d-flex justify-content-end gap-2">
@@ -101,5 +101,16 @@
 <script>
     document.getElementById("triggerFileUpload").addEventListener("click", function () {
         document.getElementById("profileImage").click();
+    });
+
+    document.getElementById("profileImage").addEventListener("change", function (event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                document.querySelector(".pharmacy-image-container img").src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
     });
 </script>

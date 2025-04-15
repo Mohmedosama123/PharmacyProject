@@ -1,11 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PharmactMangmentDAL.Models
+namespace PharmactMangmentEditeIdea.ViewModel
 {
-    public class Medication : Base
+    public class CreateMedicationDto
     {
-        public int Id { get; set; }
-
         [Required(ErrorMessage = "يجب إدخال اسم الدواء.")]
         [StringLength(100, ErrorMessage = "يجب ألا يتجاوز الاسم 100 حرف.")]
         public string Name { get; set; }
@@ -18,6 +16,6 @@ namespace PharmactMangmentDAL.Models
 
         public string Category { get; set; }
 
-        public string? ImageName { get; set; }
+        public IFormFile Image { get; set; }
     }
 }

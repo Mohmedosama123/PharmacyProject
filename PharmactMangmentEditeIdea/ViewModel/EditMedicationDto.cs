@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PharmactMangmentDAL.Models
+namespace PharmactMangmentEditeIdea.ViewModel
 {
-    public class Medication : Base
+    public class EditMedicationDto
     {
         public int Id { get; set; }
 
@@ -19,5 +19,6 @@ namespace PharmactMangmentDAL.Models
         public string Category { get; set; }
 
         public string? ImageName { get; set; }
+        public IFormFile Image { get; set; }
     }
 }

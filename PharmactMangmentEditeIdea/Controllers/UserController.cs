@@ -76,13 +76,13 @@ namespace PharmactMangmentEditeIdea.Controllers
                         if (userToReturnDTO.ImageName is not null && userToReturnDTO.Image is not null)
                         {
                             // delet image
-                            DecumentSettings.DeleteImage("Images", userToReturnDTO.ImageName);
+                            DecumentSettings.DeleteImage("Images/Profiles", userToReturnDTO.ImageName);
                         }
 
                         if (userToReturnDTO.Image is not null)
                         {
                             // save image
-                            userToReturnDTO.ImageName = DecumentSettings.UploadImage(userToReturnDTO.Image, "Images");
+                            userToReturnDTO.ImageName = DecumentSettings.UploadImage(userToReturnDTO.Image, "Images/Profiles");
                         }
 
                         if (id != userToReturnDTO.Id) return BadRequest("Invalid Operation");

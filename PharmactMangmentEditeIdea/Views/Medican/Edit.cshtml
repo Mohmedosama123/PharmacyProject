@@ -1,0 +1,111 @@
+﻿@model EditMedicationDto
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_LLLL.cshtml";
+}
+@{
+    var imageUrl = string.IsNullOrEmpty(Model.ImageName) ? Url.Content("~/Images/DefaultFileUploader.png") : Url.Content($"~/Images/Medications/{Model.ImageName}");
+}
+<div class="container">
+    <h1>Edit</h1>
+
+    <h4>Medication</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="ImageName" />
+
+                <!-- Medication Image -->
+                <div class="text-center mb-4">
+                    <div class="position-relative d-inline-block">
+                        <div class="pharmacy-image-container editable">
+                            <img src="@imageUrl"
+                                 alt="Medication Image"
+                                 class="rounded img-thumbnail"
+                                 style="width: 150px; height: 150px; object-fit: cover;">
+                            <div class="pharmacy-image-overlay" id="triggerFileUpload">
+                                <i class="bi bi-camera fs-3"></i>
+                            </div>
+                            <input asp-for="Image" type="file" id="profileImage" class="visually-hidden" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price" class="control-label"></label>
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Category" class="control-label"></label>
+                    <input asp-for="Category" class="form-control" />
+                    <span asp-validation-for="Category" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>
+
+<!-- Image Upload Script -->
+<script>
+    document.getElementById("triggerFileUpload").addEventListener("click", function () {
+        document.getElementById("profileImage").click();
+    });
+
+    document.getElementById("profileImage").addEventListener("change", function (event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                document.querySelector(".pharmacy-image-container img").src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
+
+<style>
+    .pharmacy-image-container {
+        position: relative;
+        width: 150px;
+        height: 150px;
+    }
+
+    .pharmacy-image-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 150px;
+        height: 150px;
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        cursor: pointer;
+        border-radius: 0.375rem;
+    }
+</style>

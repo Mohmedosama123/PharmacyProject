@@ -330,16 +330,13 @@ namespace PharmactMangmentEditeIdea.Controllers
 
 
                 // تحقق من وجود صورة جديدة
-                if (model.ImageName is not null && model.Image is not null)
-                {
-                    // delet image
-                    DecumentSettings.DeleteImage("Images", model.ImageName);
-                }
-
                 if (model.Image is not null)
                 {
-                    // save image
-                    model.ImageName = DecumentSettings.UploadImage(model.Image, "Images");
+                    // delet image
+                    if (!string.IsNullOrEmpty(user.ImageName))
+                        DecumentSettings.DeleteImage("Images/Profiles", user.ImageName);
+
+                    model.ImageName = DecumentSettings.UploadImage(model.Image, "Images/Profiles");
                 }
 
 
