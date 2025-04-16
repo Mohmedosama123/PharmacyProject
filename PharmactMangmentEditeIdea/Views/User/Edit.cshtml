@@ -1,13 +1,13 @@
 ﻿@model UserToReturnViewModel
 @{
     ViewData["Title"] = "Edit";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_DashbordForAdmin.cshtml";
 }
 
 <main class="flex-grow-1">
     <div class="container py-4 py-md-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1 class="h2 mb-0">Edit Medication</h1>
+            <h1 class="h2 mb-0">Edit User</h1>
             <a asp-action="Index"  class="btn btn-outline-secondary">
                 <i class="bi bi-arrow-left me-1"></i>
                 Back to Dashboard
@@ -16,8 +16,8 @@
 
         <div class="card shadow">
             <div class="card-header bg-white">
-                <h5 class="mb-0">Edit Medication Details</h5>
-                <p class="text-muted mb-0">Update information for this medication</p>
+                <h5 class="mb-0">Edit User Information</h5>
+                <p class="text-muted mb-0">Update information for this User</p>
             </div>
             <div class="card-body">
 
@@ -26,7 +26,19 @@
                     <input asp-for="Id" type="hidden"  />
                     <input asp-for="ImageName" type="hidden" id="Id"  />
 
-
+                    @*User Image*@
+                    <!-- Pharmacy Image -->
+                    <div class="text-center mb-4">
+                        <div class="position-relative d-inline-block">
+                            <div class="pharmacy-image-container editable">
+                                <img src="@Url.Content("~/Images/" + (string.IsNullOrEmpty(Model.ImageName) ? "default-avatar.jpg" : $"Profiles/{Model.ImageName}"))" alt="Model.ImageName" class="rounded-circle img-thumbnail" style="width: 150px; height: 150px; object-fit: cover;">
+                                <div class="pharmacy-image-overlay" id="triggerFileUpload">
+                                    <i class="bi bi-camera fs-3"></i>
+                                </div>
+                                <input asp-for="Image" type="file" id="profileImage" class="visually-hidden" />
+                            </div>
+                        </div>
+                    </div>
                     
 
                     <div class="mb-3">
@@ -50,28 +62,28 @@
                         <input asp-for="UserName" id="Description" type="text" class="form-control"  required>
                     </div>
 
-                    <div class="mb-3">
-                        <label asp-for="Image" class="form-label">User Image</label>
-                        <div class="d-flex flex-column align-items-center">
-                            <div class="position-relative medication-upload-container mb-2">
-                                <div class="medication-upload-preview" id="imagePreview">
-                                    @* <img src="@Url.Content("~/Images/" + (string.IsNullOrEmpty(Model.ImageName) ? "OIP.jpg" : Model.ImageName))" ... /> *@
-                                    @if (Model.ImageName is not null)
-                                    {
-                                        <img src="~/Images/ImageName" alt="ImageName" class="img-fluid rounded" />
+                    @* <div class="mb-3"> *@
+                    @*     <label asp-for="Image" class="form-label">User Image</label> *@
+                    @*     <div class="d-flex flex-column align-items-center"> *@
+                    @*         <div class="position-relative medication-upload-container mb-2"> *@
+                    @*             <div class="medication-upload-preview" id="imagePreview"> *@
+                    @*                 @* <img src="@Url.Content("~/Images/" + (string.IsNullOrEmpty(Model.ImageName) ? "OIP.jpg" : Model.ImageName))" ... /> *@ 
+                    @*                 @if (Model.ImageName is not null) *@
+                    @*                 { *@
+                    @*                     <img src="~/Images/ImageName" alt="ImageName" class="img-fluid rounded" /> *@
 
-                                    }
-                                    else
-                                    {
-                                        <img src="~/OIP.png" alt="Photo" class="img-fluid rounded" />
+                    @*                 } *@
+                    @*                 else *@
+                    @*                 { *@
+                    @*                     <img src="~/OIP.png" alt="Photo" class="img-fluid rounded" /> *@
 
-                                    }
-                                </div>
-                                <input asp-for="Image" type="file" class="form-control visually-hidden" id="ImageFile" accept="image/*">
-                            </div>
-                            <p class="text-muted small">Upload a new image or keep the existing one</p>
-                        </div>
-                    </div>
+                    @*                 } *@
+                    @*             </div> *@
+                    @*             <input asp-for="Image" type="file" class="form-control visually-hidden" id="ImageFile" accept="image/*"> *@
+                    @*         </div> *@
+                    @*         <p class="text-muted small">Upload a new image or keep the existing one</p> *@
+                    @*     </div> *@
+                    @* </div> *@
 
                     <div class="d-flex justify-content-end gap-2">
                         <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>

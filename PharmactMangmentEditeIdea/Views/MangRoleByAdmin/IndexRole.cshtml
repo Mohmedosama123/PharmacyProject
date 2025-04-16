@@ -1,0 +1,198 @@
+﻿@model IEnumerable<RoleViewModel>
+@{
+    ViewData["Title"] = "IndexRole";
+    Layout = "~/Views/Shared/_DashbordForAdmin.cshtml";
+}
+
+@{
+    var message = TempData["Message"] as string;
+}
+
+@*popup*@
+@if (!string.IsNullOrEmpty(message))
+{
+    <div aria-live="polite" aria-atomic="true" class="toast-container position-fixed p-3" style="bottom: 20px; right: 20px;">
+        <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <img src="/defultImages/1.jpg" class="rounded me-2" width="30" height="30" alt="Success Icon">
+                <strong class="me-auto text-success">Success!</strong>
+                <small>Just now</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                @TempData["Message"]
+            </div>
+        </div>
+    </div>
+}
+
+
+
+<main class="flex-grow-1">
+    <div class="container py-4 py-md-5">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4">
+            <div>
+                <h1 class="h2 mb-1">Admin Dashboard</h1>
+                <p class="text-muted">Manage your Role and pharmacy information</p>
+            </div>
+        </div>
+
+        <ul class="nav nav-tabs mb-4" id="pharmacyTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a asp-action="IndexRole" class="nav-link" id="medications-tab" role="tab">
+                   All Role
+                </a>
+            </li>
+            <a asp-controller="MangRoleByAdmin" asp-action="CreateRole" class="nav-link" id="add-tab" role="tab">
+                Creat Role
+            </a>
+        </ul>
+        <div class="tab-content" id="pharmacyTabsContent">
+
+            <!-- all Medican -->
+            <div class="tab-pane fade show active" id="medications-tab-pane" role="tabpanel" aria-labelledby="medications-tab" tabindex="0">
+
+                <div class="card">
+                    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">All Role</h5>
+                        <div class="input-group" style="max-width: 300px;">
+                            <span class="input-group-text"><i class="bi bi-search"></i></span>
+                            <input type="text" class="form-control" id="medicationSearch" placeholder="Search About Role...">
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Name</th>                                       
+                                        <th class="text-end">Actions</th>
+                                    </tr>
+                                </thead>
+                                @foreach (var Role in Model)
+                                {
+                                    <tbody>
+
+                                        <tr>
+                                            <td>
+                                                <div class="medication-img-sm">
+                                            
+                                                <img src="@Url.Content("~/Images/" +"default-avatar.jpg")" alt="avatar" class="img-fluid rounded" style="width: 50px; height: 50px; object-fit: cover;" />
+                                           
+                                                </div>
+                                            </td>
+                                            <td>@Role.Name</td>
+
+                                            <td class="text-end">
+                                                <button class="btn btn-sm btn-outline-primary me-1 edit-role-btn"
+                                                        data-role-id="@Role.Id"
+                                                        data-role-name="@Role.Name">
+                                                    
+                                                    <i class="bi bi-pencil me-1"></i>
+                                                    Edit
+                                                </button>
+                                                <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteMedicationModal" data-medication-id="2" data-medication-name="Amoxicillin">
+                                                    <i class="bi bi-trash me-1"></i>
+                                                    Delete
+                                                </button>
+                                            </td>
+                                            
+                                            @* <td class="text-end me-4">                    *@
+                                            @*     <button class="btn btn-success w-50 edit-role-btn" *@
+                                            @*             data-role-id="@Role.Id" *@
+                                            @*             data-role-name="@Role.Name"> *@
+                                            @*         Edit *@
+                                            @*     </button> *@
+                                            @* </td> *@
+                                        </tr>
+
+
+                                    </tbody>
+
+                                }
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        </div>
+
+        @*Edite pop up*@
+        <div class="modal fade" id="editRoleModal" tabindex="-1" aria-labelledby="editRoleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form method="post" id="editRoleForm">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editRoleModalLabel">Edit Role</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" id="roleId" name="Id" />
+                            <div class="mb-3">
+                                <label for="roleName" class="form-label">Role Name</label>
+                                <input type="text" class="form-control" id="roleName" name="Name" required />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+</main>
+
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const editButtons = document.querySelectorAll(".edit-role-btn");
+            const roleIdInput = document.getElementById("roleId");
+            const roleNameInput = document.getElementById("roleName");
+            const editForm = document.getElementById("editRoleForm");
+
+            editButtons.forEach(button => {
+                button.addEventListener("click", () => {
+                    const roleId = button.getAttribute("data-role-id");
+                    const roleName = button.getAttribute("data-role-name");
+
+                    roleIdInput.value = roleId;
+                    roleNameInput.value = roleName;
+
+                    const editModal = new bootstrap.Modal(document.getElementById('editRoleModal'));
+                    editModal.show();
+                });
+            });
+
+            editForm.addEventListener("submit", function (e) {
+                e.preventDefault();
+                const formData = new FormData(editForm);
+                const id = formData.get("Id");
+                const name = formData.get("Name");
+
+                fetch(`/MangRoleByAdmin/EditRole/${id}`, {
+                    method: "POST",
+                    body: formData,
+                })
+                .then(response => {
+                    if (response.redirected) {
+                        window.location.href = response.url;
+                    } else {
+                        return response.text();
+                    }
+                })
+                .then(data => {
+                    // ممكن هنا تحط لوجيك لو فشلت العملية
+                    console.log(data);
+                });
+            });
+        });
+    </script>
+
+
+

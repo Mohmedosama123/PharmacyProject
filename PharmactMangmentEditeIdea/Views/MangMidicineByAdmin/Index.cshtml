@@ -2,7 +2,7 @@
 @model IEnumerable<Medication>
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_LLLL.cshtml";
+    Layout = "~/Views/Shared/_DashbordForAdmin.cshtml";
 }
 
 @{
@@ -15,7 +15,7 @@
     <div aria-live="polite" aria-atomic="true" class="toast-container position-fixed p-3" style="bottom: 20px; right: 20px;">
         <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
-                <img src="/Images/1.jpg" class="rounded me-2" width="30" height="30" alt="Success Icon">
+                <img src="/defultImages/1.jpg" class="rounded me-2" width="30" height="30" alt="Success Icon">
                 <strong class="me-auto text-success">Success!</strong>
                 <small>Just now</small>
                 <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
@@ -93,7 +93,7 @@
                                                 <div class="medication-img mx-auto mb-3">
                                                     @if(medication.ImageName is not null)
                                                     {
-                                                        <img src="~/Images/@medication.ImageName" alt="@medication.ImageName" class="img-fluid rounded">
+                                                        <img src="~/Images/Medications/@medication.ImageName" alt="@medication.ImageName" class="img-fluid rounded">
 
                                                     }
                                                     else
