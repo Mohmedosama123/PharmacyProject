@@ -59,9 +59,6 @@
                                 </thead>
                                 @foreach (var medication in Model)
                                 {
-                                    @{
-                                        var imageUrl = string.IsNullOrEmpty(medication.ImageName) ? Url.Content("~/Images/DefaultFileUploader.png") : Url.Content($"~/Images/Medications/{medication.ImageName}");
-                                    }
                                     <tbody>
 
                                         <tr>
