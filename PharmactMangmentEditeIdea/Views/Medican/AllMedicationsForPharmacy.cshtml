@@ -64,7 +64,13 @@
                                         <tr>
                                             <td>
                                                 <div class="medication-img-sm">
-                                                    <img src="~/Images/Medications/@medication.ImageName" alt="@medication.ImageName" class="img-fluid rounded">
+                                                    @if (!string.IsNullOrEmpty(medication.ImageName))
+                                                    {
+                                                        <img src="~/Images/Medications/@medication.ImageName" alt="@medication.ImageName" class="img-fluid rounded">
+                                                    }
+                                                    else{
+                                                        <img src="~/Images/DefaultFileUploader.png" alt="@medication.ImageName" class="img-fluid rounded">
+                                                    }
                                                 </div>
                                             </td>
                                             <td>@medication.Name</td>
