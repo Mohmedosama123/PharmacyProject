@@ -92,19 +92,27 @@
                                                     <i class="bi bi-pencil me-1"></i>
                                                     Edit
                                                 </button>
-                                                <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteMedicationModal" data-medication-id="2" data-medication-name="Amoxicillin">
+
+
+
+                                                <!-- زرار الحذف داخل الصف بتاع كل Role -->
+                                                <!-- كلاس علشان نقدر نمسكه بالـ JS -->
+                                                <!-- بنخزن الآي دي بتاع الـ Role علشان نبعته عند الحذف -->
+                                                <!-- بنخزن اسم الـ Role علشان نعرضه في المودال -->
+                                                <!-- بنقول للبوتستراب إنه هيفتح مودال -->
+                                                <!-- وده الآي دي بتاع المودال اللي هيظهر -->
+                                                <!-- أيقونة سلة المهملات -->
+                                                <button type="button"
+                                                        class="btn btn-sm btn-outline-danger delete-role-btn"
+                                                        data-role-id="@Role.Id"
+                                                        data-role-name="@Role.Name"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#deleteRoleModal">
                                                     <i class="bi bi-trash me-1"></i>
                                                     Delete
                                                 </button>
                                             </td>
-                                            
-                                            @* <td class="text-end me-4">                    *@
-                                            @*     <button class="btn btn-success w-50 edit-role-btn" *@
-                                            @*             data-role-id="@Role.Id" *@
-                                            @*             data-role-name="@Role.Name"> *@
-                                            @*         Edit *@
-                                            @*     </button> *@
-                                            @* </td> *@
+                                           
                                         </tr>
 
 
@@ -145,10 +153,33 @@
             </div>
         </div>
 
+        @*Popup for delet  *@
+    <div class="modal fade" id="deleteRoleModal" tabindex="-1" aria-labelledby="deleteRoleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="post" id="deleteRoleForm">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirm Delete</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to delete the role <strong id="deleteRoleName"></strong>?</p>
+                        <input type="hidden" name="Id" id="deleteRoleId" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
 </main>
 
 
-
+@* seript for edite *@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const editButtons = document.querySelectorAll(".edit-role-btn");
@@ -194,5 +225,46 @@
         });
     </script>
 
+    @* Scrept for delet  *@
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const deleteButtons = document.querySelectorAll(".delete-role-btn");
+        const deleteRoleId = document.getElementById("deleteRoleId");
+        const deleteRoleName = document.getElementById("deleteRoleName");
+        const deleteForm = document.getElementById("deleteRoleForm");
+
+        deleteButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                const roleId = button.getAttribute("data-role-id");
+                const roleName = button.getAttribute("data-role-name");
+
+                deleteRoleId.value = roleId;
+                deleteRoleName.textContent = roleName;
+            });
+        });
+
+        deleteForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(deleteForm);
+            const id = formData.get("Id");
+
+            fetch(`/MangRoleByAdmin/DeleteRole/${id}`, {
+                method: "POST",
+                body: formData,
+            })
+            .then(response => {
+                if (response.redirected) {
+                    window.location.href = response.url;
+                } else {
+                    return response.text();
+                }
+            })
+            .then(data => {
+                console.log(data);
+            });
+        });
+    });
+</script>
 
 

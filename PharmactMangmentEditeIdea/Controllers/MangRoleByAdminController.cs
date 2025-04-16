@@ -117,7 +117,30 @@ namespace PharmactMangmentEditeIdea.Controllers
             return View("EditRole");
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        //[Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteRole([FromRoute] string? id, RoleViewModel roleDeletDTO)
+        {
 
-       
+            if (ModelState.IsValid)
+            {
+                if (id != roleDeletDTO.Id) return BadRequest("Invalid Operation");
+                var role = await _roleManager.FindByIdAsync(id);
+                if (role == null) return BadRequest("Invalid Operation");
+
+
+                var result = await _roleManager.DeleteAsync(role);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction(nameof(IndexRole));
+                }
+
+                ModelState.AddModelError("", "Invalid Operation");
+
+            }
+            return View("DeleteRole");
+        }
+
     }
 }
