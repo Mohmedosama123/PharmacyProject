@@ -78,7 +78,7 @@ namespace PharmactMangmentEditeIdea.Controllers
         #endregion
 
 
-        #region Edite
+        #region Edite medicine in admin dashbord
         [HttpGet]
         public async Task<IActionResult> EditMedication([FromRoute] int? id)
         {

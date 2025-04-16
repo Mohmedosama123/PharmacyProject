@@ -22,6 +22,7 @@ namespace PharmactMangmentEditeIdea.Controllers
             this.ofWork = ofWork;
         }
 
+        #region Eng/ Mahmode Created
         [HttpGet]
         public IActionResult Index()
         {
@@ -50,7 +51,7 @@ namespace PharmactMangmentEditeIdea.Controllers
                 Description = model.Description,
                 ImageName = imgName,
                 Name = model.Name,
-                Price = model.Price,  
+                Price = model.Price,
             });
             _dbContext.SaveChanges();
             return RedirectToAction("Index");
@@ -101,8 +102,13 @@ namespace PharmactMangmentEditeIdea.Controllers
             _dbContext.SaveChanges();
             return RedirectToAction("Index");
         }
+        #endregion
 
-        #region dashpord
+
+
+
+
+        #region dashpord for all medical
 
         //#region MyRegion
         //[HttpGet]
@@ -211,6 +217,7 @@ namespace PharmactMangmentEditeIdea.Controllers
 
 
 
+        #region Padg of all medical 
         // Update the POST action to accept an array of medication IDs
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -288,6 +295,7 @@ namespace PharmactMangmentEditeIdea.Controllers
             return RedirectToAction("AllMedicationsForPharmacy");
         }
 
+        #endregion
 
         #region MyRegion
 

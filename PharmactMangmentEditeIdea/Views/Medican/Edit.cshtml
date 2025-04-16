@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Edit";
-    Layout = "~/Views/Shared/_LLLL.cshtml";
+    Layout = "~/Views/Shared/_PharmacyIayout.cshtml";
 }
 @{
     var imageUrl = string.IsNullOrEmpty(Model.ImageName) ? Url.Content("~/Images/DefaultFileUploader.png") : Url.Content($"~/Images/Medications/{Model.ImageName}");
