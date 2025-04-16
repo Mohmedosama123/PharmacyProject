@@ -64,48 +64,45 @@ namespace PharmactMangmentEditeIdea.Controllers
         {
             if (ModelState.IsValid)
             {
-                var usercheck = await _userManager.FindByNameAsync(userToReturnDTO.UserName);
-
-                if (usercheck is not null)
+                var user = await _userManager.FindByIdAsync(userToReturnDTO.Id);
+                if (user is not null)
                 {
-                    usercheck = await _userManager.FindByEmailAsync(userToReturnDTO.Email);
-
-                    if (usercheck is not null)
+                    // if image is not null and image name is not null
+                    if (user.ImageName is not null && userToReturnDTO.Image is not null)
                     {
-                        // if image is not null and image name is not null
-                        if (userToReturnDTO.ImageName is not null && userToReturnDTO.Image is not null)
-                        {
-                            // delet image
-                            DecumentSettings.DeleteImage("Images/Profiles", userToReturnDTO.ImageName);
-                        }
+                        // delet image
+                        DecumentSettings.DeleteImage("Images/Profiles", user.ImageName);
+                    }
 
-                        if (userToReturnDTO.Image is not null)
-                        {
-                            // save image
-                            userToReturnDTO.ImageName = DecumentSettings.UploadImage(userToReturnDTO.Image, "Images/Profiles");
-                        }
+                    if (userToReturnDTO.Image is not null)
+                    {
+                        // save image
+                        userToReturnDTO.ImageName = DecumentSettings.UploadImage(userToReturnDTO.Image, "Images/Profiles");
+                    }
 
-                        if (id != userToReturnDTO.Id) return BadRequest("Invalid Operation");
-                        var user = await _userManager.FindByIdAsync(id);
-                        if (user == null) return BadRequest("Invalid Operation");
+                    if (id != userToReturnDTO.Id) 
+                        return BadRequest("Invalid Operation");
 
-                        user.UserName = userToReturnDTO.UserName;
-                        user.NameOfPharmacy = userToReturnDTO.NameOfPharmacy;
-                        user.OwnerName = userToReturnDTO.OwnerName;
-                        user.Email = userToReturnDTO.Email;
+                    if (user == null) 
+                        return BadRequest("Invalid Operation");
 
-                        //if (userToReturnDTO.Image is not null)
-                        //{
-                        //    // حفظ الصورة وتحديث اسمها في قاعدة البيانات
-                        //    var fileName = DecumentSettings.UploadImage(userToReturnDTO.Image, "Images");
-                        //    user.ImageName = fileName;  // ✅ التحديث على `user`
-                        //}
+                    user.UserName = userToReturnDTO.UserName;
+                    user.NameOfPharmacy = userToReturnDTO.NameOfPharmacy;
+                    user.OwnerName = userToReturnDTO.OwnerName;
+                    user.Email = userToReturnDTO.Email;
+                    user.ImageName = userToReturnDTO.ImageName;
 
-                        var result = await _userManager.UpdateAsync(user);
-                        if (result.Succeeded)
-                        {
-                            return RedirectToAction(nameof(Index));
-                        }
+                    //if (userToReturnDTO.Image is not null)
+                    //{
+                    //    // حفظ الصورة وتحديث اسمها في قاعدة البيانات
+                    //    var fileName = DecumentSettings.UploadImage(userToReturnDTO.Image, "Images");
+                    //    user.ImageName = fileName;  // ✅ التحديث على `user`
+                    //}
+
+                    var result = await _userManager.UpdateAsync(user);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction(nameof(Index));
                     }
                 }
                 return View(userToReturnDTO);
