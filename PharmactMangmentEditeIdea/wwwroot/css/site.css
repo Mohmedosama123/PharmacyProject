@@ -393,6 +393,27 @@ body {
         background-color: rgba(255, 255, 255, 0.05);
     }
 
+/* chang the wordr clo */
+body.dark-mode .navbar .nav-link {
+    color: white !important;
+}
+
+body.dark-mode .navbar-brand {
+    color: white !important;
+}
+body.dark-mode .bi {
+    color: white !important;
+}
+
+body.dark-mode .navbar-container {
+    background-color: white !important;
+    opacity: 10000;
+} 
+/* for form */
+body.dark-mode .search-form-container input {
+    background-color: white;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .hero-section {

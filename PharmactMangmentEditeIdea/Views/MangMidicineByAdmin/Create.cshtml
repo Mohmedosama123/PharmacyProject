@@ -18,6 +18,22 @@
                 <div class="card-body">
                     <form asp-action="Create" enctype="multipart/form-data">
                         <div class="mb-3">
+
+
+                            <label class="form-label" asp-for="Imags">Medication Image</label>
+                            <div class="d-flex flex-column align-items-center">
+                                <div class="position-relative medication-upload-container mb-2">
+                                    <div class="medication-upload-preview" id="imagePreview">
+                                        <i class="bi bi-upload fs-2 text-muted"></i>
+                                        <p class="text-muted small mb-0">Click to upload</p>
+                                    </div>
+                                    <input type="file" asp-for="Imags" class="form-control visually-hidden" id="ImageFile" name="Imags" accept="image/*">
+                                </div>
+                                <p class="text-muted small">Upload a medication image (JPG, PNG)</p>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
                             <label for="Name" asp-for="Name" class="form-label">Medication Name</label>
                             <input type="text" asp-for="Name" class="form-control" id="Name" name="Name" required>
                             <span asp-validation-for="Name" class="text-danger"></span>
@@ -46,24 +62,10 @@
 
                         </div>
 
-                        <div class="mb-3">
+                      
 
-
-                            <label class="form-label" asp-for="Imags">Medication Image</label>
-                            <div class="d-flex flex-column align-items-center">
-                                <div class="position-relative medication-upload-container mb-2">
-                                    <div class="medication-upload-preview" id="imagePreview">
-                                        <i class="bi bi-upload fs-2 text-muted"></i>
-                                        <p class="text-muted small mb-0">Click to upload</p>
-                                    </div>
-                                    <input type="file" asp-for="Imags" class="form-control visually-hidden" id="ImageFile" name="Imags" accept="image/*">
-                                </div>
-                                <p class="text-muted small">Upload a medication image (JPG, PNG)</p>
-                            </div>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary w-50">Add Medication</button>
-                        <a asp-action="Index" class="mt-4 btn btn-light w-50 ">Back to List</a>
+                        <button type="submit" class="btn btn-primary w-100">Add Medication</button>
+                        <a asp-action="Index" class="mt-4 btn btn-dark w-100 ">Back to List</a>
 
                     </form>
 
