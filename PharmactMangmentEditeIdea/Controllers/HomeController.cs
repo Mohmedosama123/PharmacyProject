@@ -52,6 +52,7 @@ namespace PharmactMangmentEditeIdea.Controllers
             {
                 MedicineName = m.medican.Name,
                 MedicineImg = m.medican.ImageName,
+                MedicinePrice = m.medican.Price,
                 PharmacyBaseAddress = m.pharmacy.Governorate,
                 PharmacySecondaryAddress = m.pharmacy.FullAddress,
                 PharmacyName = m.pharmacy.NameOfPharmacy,

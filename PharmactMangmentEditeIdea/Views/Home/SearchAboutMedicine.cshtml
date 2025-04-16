@@ -92,17 +92,28 @@
                             <div class="col-md-6 col-lg-4 animate-on-scroll" data-delay="100">
                                 <div class="card pharmacy-card h-100 shadow-sm">
                                     <div class="medication-img mb-1">
+                                        @if (!string.IsNullOrEmpty(medicine.MedicineImg))
+                                        {
+                                            <img src="~/Images/Medications/@medicine.MedicineImg" alt="Paracetamol" class="img-fluid rounded">
+                                        }
+                                        else{
+                                            <img src="~/Images/DefaultFileUploader.png" alt="Paracetamol" class="img-fluid rounded">
+                                        }
                                         <img src="Annotation 2024-12-22 150616.png" alt="Paracetamol" class="img-fluid rounded">
                                     </div>
                                     <div class="card-header position-relative pb-2">
                                         <div class="position-relative">
                                             <div class="d-flex justify-content-between align-items-center">
-                                                <h3 class="h5 mb-0">@medicine.PharmacyName</h3>
+                                                <h3 class="h5 mb-0">@medicine.MedicineName</h3>
+                                                <h6 class="mb-0">@medicine.MedicinePrice</h6>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="card-body pb-2">
                                         <div class="mb-3">
+                                            <div class="d-flex mb-2">
+                                                <h5 class="mb-0">@medicine.PharmacyName</h5>
+                                            </div>
                                             <div class="d-flex mb-2">
                                                 <i class="bi bi-geo-alt text-primary me-2 mt-1"></i>
                                                 <div>
