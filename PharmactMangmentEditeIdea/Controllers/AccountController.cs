@@ -65,6 +65,8 @@ namespace PharmactMangmentEditeIdea.Controllers
                         var result = await _userManager.CreateAsync(user, signUpView.Password);
                         if (result.Succeeded)
                         {
+                            await _userManager.AddToRoleAsync(user, "pharmacy");
+
                             var pharmacy= new Pharmacy
                             {
                                 Email = signUpView.Email,
@@ -122,7 +124,14 @@ namespace PharmactMangmentEditeIdea.Controllers
                         var result = await _signInManager.PasswordSignInAsync(user, signInView.Password, signInView.RememberMe ?? false, false);
                         if (result.Succeeded)
                         {
-                            return RedirectToAction("AllMedicationsForPharmacy", "Medican");
+                            if (await _userManager.IsInRoleAsync(user, "admin"))
+                            {
+                                return RedirectToAction("Index", "Admin");
+                            }
+                            else if (await _userManager.IsInRoleAsync(user, "pharmacy"))
+                            {
+                                return RedirectToAction("AllMedicationsForPharmacy", "Medican");
+                            }
                         }
                     }
                 }
@@ -385,12 +394,13 @@ namespace PharmactMangmentEditeIdea.Controllers
             }
             return View(model);
         }
-
-
-
-
-
         #endregion
+
+        [HttpGet]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
 
 
     }

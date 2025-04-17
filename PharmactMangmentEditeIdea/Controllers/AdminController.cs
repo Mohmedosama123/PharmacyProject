@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PharmactMangmentBLL.Interfaces;
-using PharmactMangmentBLL.Repositories;
 using PharmactMangmentDAL.Data.Contexts;
 using PharmactMangmentDAL.Models;
 using PharmactMangmentEditeIdea.HelperImage;
@@ -8,12 +8,13 @@ using PharmactMangmentEditeIdea.ViewModel;
 
 namespace PharmactMangmentEditeIdea.Controllers
 {
-    public class MangMidicineByAdminController : Controller
+    [Authorize(Roles = "Admin")]
+    public class AdminController : Controller
     {
         private readonly PharmaceDbContext _dbContext;
         private readonly IUnitOfWork _unitOfWork;
 
-        public MangMidicineByAdminController(PharmaceDbContext dbContext , IUnitOfWork unitOfWork)
+        public AdminController(PharmaceDbContext dbContext , IUnitOfWork unitOfWork)
         {
             _dbContext = dbContext;
             _unitOfWork = unitOfWork;

@@ -40,11 +40,11 @@
 
         <ul class="nav nav-tabs mb-4" id="pharmacyTabs" role="tablist">
             <li class="nav-item" role="presentation">
-                <a asp-controller="MangMidicineByAdmin" asp-action="Index" class="nav-link" id="medications-tab" role="tab">
+                <a asp-controller="Admin" asp-action="Index" class="nav-link" id="medications-tab" role="tab">
                    All Medications
                 </a>
             </li>
-            <a asp-controller="MangMidicineByAdmin" asp-action="Create" class="nav-link" id="add-tab" role="tab">
+            <a asp-controller="Admin" asp-action="Create" class="nav-link" id="add-tab" role="tab">
                 Create Medication
             </a>
             
@@ -161,7 +161,7 @@
 
 <script>
     function setDeleteId(id) {
-        document.getElementById("deleteForm").action = `/MangMidicineByAdmin/DeleteMedication/${id}`;
+        document.getElementById("deleteForm").action = `/Admin/DeleteMedication/${id}`;
     }
 </script>
 

@@ -1,0 +1,152 @@
+﻿@{
+    ViewData["Title"] = "Access Denied";
+    Layout = "~/Views/Shared/_DashbordForAdmin.cshtml";
+}
+
+<div class="access-denied-container">
+    <div class="access-denied-content">
+        <div class="error-code">403</div>
+        <div class="error-icon">
+            <svg viewBox="0 0 24 24" width="120" height="120">
+                <path fill="currentColor" d="M12,1L3,5v6c0,5.55,3.84,10.74,9,12c5.16-1.26,9-6.45,9-12V5L12,1z M12,11.99h7c-0.53,4.12-3.28,7.79-7,8.94V12H5V6.3l7-3.11V11.99z" />
+            </svg>
+        </div>
+        <h1 class="error-title">Access Denied</h1>
+        <p class="error-description">Sorry, you don't have permission to access this resource.</p>
+
+        <div class="action-buttons">
+            <a href="@Url.Action("Index", "Home")" class="btn btn-primary">
+                <svg class="btn-icon" viewBox="0 0 24 24" width="18" height="18">
+                    <path fill="currentColor" d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z" />
+                </svg>
+                Go Home
+            </a>
+            <a href="javascript:history.back()" class="btn btn-secondary">
+                <svg class="btn-icon" viewBox="0 0 24 24" width="18" height="18">
+                    <path fill="currentColor" d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" />
+                </svg>
+                Go Back
+            </a>
+        </div>
+
+        <div class="error-details">
+            <div class="error-time">
+                <span>Time: </span>@DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+            </div>
+            <div class="request-id">
+                <span>Request ID: </span>@Context.TraceIdentifier
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .access-denied-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .access-denied-content {
+        text-align: center;
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        padding: 3rem;
+        max-width: 600px;
+        width: 100%;
+        position: relative;
+    }
+
+    .error-code {
+        position: absolute;
+        top: 0;
+        right: 0;
+        font-size: 12rem;
+        font-weight: 800;
+        color: rgba(234, 84, 85, 0.07);
+        line-height: 1;
+        z-index: 0;
+    }
+
+    .error-icon {
+        color: #ea5455;
+        margin-bottom: 1.5rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .error-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #2d3748;
+        margin-bottom: 1rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .error-description {
+        font-size: 1.25rem;
+        color: #718096;
+        margin-bottom: 2rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .action-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .btn {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .btn-icon {
+        margin-right: 0.5rem;
+    }
+
+    .btn-primary {
+        background-color: #3182ce;
+        color: white;
+    }
+
+        .btn-primary:hover {
+            background-color: #2c5282;
+        }
+
+    .btn-secondary {
+        background-color: #e2e8f0;
+        color: #4a5568;
+    }
+
+        .btn-secondary:hover {
+            background-color: #cbd5e0;
+        }
+
+    .error-details {
+        font-size: 0.875rem;
+        color: #a0aec0;
+        margin-top: 2rem;
+        position: relative;
+        z-index: 1;
+        border-top: 1px solid #edf2f7;
+        padding-top: 1rem;
+    }
+
+    .error-time span, .request-id span {
+        font-weight: 600;
+    }
+</style>
