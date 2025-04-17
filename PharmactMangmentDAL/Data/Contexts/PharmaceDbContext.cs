@@ -105,9 +105,10 @@ namespace PharmactMangmentDAL.Data.Contexts
                 OwnerName = "owner 1",
                 SecurityStamp = Guid.NewGuid().ToString("D"),
                 ConcurrencyStamp = Guid.NewGuid().ToString("D"),
+                IsAgree = true,
             };
             var hasher = new PasswordHasher<IdentityUser>();
-            user.PasswordHash = hasher.HashPassword(user, "M@hmoud1903");
+            user.PasswordHash = hasher.HashPassword(user, "P@ssw0rd");
 
             Users.Add(user);
 
