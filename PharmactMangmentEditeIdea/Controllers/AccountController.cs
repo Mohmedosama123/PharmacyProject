@@ -152,7 +152,6 @@ namespace PharmactMangmentEditeIdea.Controllers
         }
         #endregion
 
-
         #region ForgetPassword
         [HttpGet]
         public IActionResult ForgetPassword()
@@ -244,7 +243,6 @@ namespace PharmactMangmentEditeIdea.Controllers
 
         #endregion
 
-
         #region ResetPassword
         [HttpGet]
         public IActionResult ResetPassword(string email, string token)
@@ -297,8 +295,6 @@ namespace PharmactMangmentEditeIdea.Controllers
 
         #endregion
 
-
-
         #region Profile
         [HttpGet]
         public async Task<IActionResult> Profile()
@@ -319,7 +315,7 @@ namespace PharmactMangmentEditeIdea.Controllers
                 Governorate = user.Governorate,
                 District = user.District,
                 Area = user.Area,
-                ImageName = user.ImageName,
+                ImageName = user.ImageName
             };
             
             return View(model);
