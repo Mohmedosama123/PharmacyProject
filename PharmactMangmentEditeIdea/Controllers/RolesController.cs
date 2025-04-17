@@ -1,25 +1,24 @@
-﻿using System.Data;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using PharmactMangmentDAL.Models;
-using PharmactMangmentEditeIdea.HelperImage;
 using PharmactMangmentEditeIdea.ViewModel;
+using System.Data;
 
 namespace PharmactMangmentEditeIdea.Controllers
 {
-    public class MangRoleByAdminController : Controller
+    [Authorize(Roles = "Admin")]
+    public class RolesController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public MangRoleByAdminController(RoleManager<IdentityRole> roleManager)
+        public RolesController(RoleManager<IdentityRole> roleManager)
         {
             _roleManager = roleManager;
         }
 
 
         [HttpGet]
-        public async Task<IActionResult> IndexRole()
+        public IActionResult IndexRole()
         {
             IEnumerable<RoleViewModel> Role;
             Role = _roleManager.Roles.Select(R => new RoleViewModel()
@@ -38,10 +37,7 @@ namespace PharmactMangmentEditeIdea.Controllers
             return View();
         }
 
-
-
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateRole(RoleViewModel roleToReturnDTO)
         {
             if (ModelState.IsValid)
@@ -72,9 +68,6 @@ namespace PharmactMangmentEditeIdea.Controllers
             return View(roleToReturnDTO);
         }
 
-
-
-
         [HttpGet]
         public async Task<IActionResult> EditRole(string? id)
         {
@@ -88,7 +81,6 @@ namespace PharmactMangmentEditeIdea.Controllers
             };
             return View(UserRole);
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -119,7 +111,6 @@ namespace PharmactMangmentEditeIdea.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteRole([FromRoute] string? id, RoleViewModel roleDeletDTO)
         {
 

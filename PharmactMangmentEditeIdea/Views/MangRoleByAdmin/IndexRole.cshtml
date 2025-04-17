@@ -43,7 +43,7 @@
                    All Role
                 </a>
             </li>
-            <a asp-controller="MangRoleByAdmin" asp-action="CreateRole" class="nav-link" id="add-tab" role="tab">
+            <a asp-controller="Roles" asp-action="CreateRole" class="nav-link" id="add-tab" role="tab">
                 Creat Role
             </a>
         </ul>
@@ -206,7 +206,7 @@
                 const id = formData.get("Id");
                 const name = formData.get("Name");
 
-                fetch(`/MangRoleByAdmin/EditRole/${id}`, {
+            fetch(`/Roles/EditRole/${id}`, {
                     method: "POST",
                     body: formData,
                 })
@@ -249,7 +249,7 @@
             const formData = new FormData(deleteForm);
             const id = formData.get("Id");
 
-            fetch(`/MangRoleByAdmin/DeleteRole/${id}`, {
+            fetch(`/Roles/DeleteRole/${id}`, {
                 method: "POST",
                 body: formData,
             })

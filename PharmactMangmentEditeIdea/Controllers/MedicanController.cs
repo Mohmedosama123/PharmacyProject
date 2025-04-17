@@ -1,14 +1,14 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PharmactMangmentBLL.Interfaces;
 using PharmactMangmentDAL.Data.Contexts;
 using PharmactMangmentDAL.Models;
-using PharmactMangmentEditeIdea.HelperImage;
-using PharmactMangmentEditeIdea.ViewModel;
 
 namespace PharmactMangmentEditeIdea.Controllers
 {
+    [Authorize(Roles = "Pharmacy")]
     public class MedicanController : Controller
     {
         private readonly PharmaceDbContext _dbContext;
@@ -23,6 +23,7 @@ namespace PharmactMangmentEditeIdea.Controllers
         }
 
         #region Eng/ Mahmode Created
+        /*
         [HttpGet]
         public IActionResult Index()
         {
@@ -102,109 +103,10 @@ namespace PharmactMangmentEditeIdea.Controllers
             _dbContext.SaveChanges();
             return RedirectToAction("Index");
         }
+        */
         #endregion
 
-
-
-
-
-        #region dashpord for all medical
-
-        //#region MyRegion
-        //[HttpGet]
-        //public IActionResult Dashbord()
-        //{
-        //    IEnumerable<Medication> x = _dbContext.Medications.ToList();
-        //    return View(x);
-        //}
-
-        //[HttpPost]
-        //public async Task<IActionResult> Dashbord(int medicationId)
-        //{
-        //    // 1️⃣ استرجاع المستخدم المسجل حاليًا
-        //    var userId = _userManager.GetUserId(User); // جلب ID المستخدم الحالي
-        //    var pharmacy = await _dbContext.Pharmacies.FirstOrDefaultAsync(p => p.userId == userId);
-
-        //    if (pharmacy == null)
-        //    {
-        //        return NotFound("Pharmacy not found.");
-        //    }
-
-        //    // 2️⃣ التأكد من أن الدواء موجود
-        //    var medication = await _dbContext.Medications.FindAsync(medicationId);
-        //    if (medication == null)
-        //    {
-        //        return NotFound("Medication not found.");
-        //    }
-
-        //    // 3️⃣ التأكد أن الدواء غير مضاف مسبقًا للصيدلية
-        //    var existingEntry = await _dbContext.Set<Med_Phar>()
-        //        .FirstOrDefaultAsync(mp => mp.MedicationId == medicationId && mp.PharmacyId == pharmacy.Id);
-
-        //    if (existingEntry == null)
-        //    {
-        //        // 4️⃣ إضافة الدواء إلى الصيدلية
-        //        var medPhar = new Med_Phar
-        //        {
-        //            MedicationId = medicationId,
-        //            PharmacyId = pharmacy.Id,
-        //            Quantity = 1,
-        //            InStock = true
-        //        };
-
-        //        _dbContext.Set<Med_Phar>().Add(medPhar);
-        //        await _dbContext.SaveChangesAsync();
-        //    }
-
-        //    return RedirectToAction("Dashbord");
-        //}
-
-
-        ////إضافة الأدوية عبر POST
-
-
-        ////[HttpPost]
-        ////public async Task<IActionResult> Dashbord([FromBody] List<int> medicationIds)
-        ////{
-        ////    var userId = _userManager.GetUserId(User);
-        ////    var pharmacy = await _dbContext.Pharmacies.FirstOrDefaultAsync(p => p.userId == userId);
-
-        ////    if (pharmacy == null)
-        ////    {
-        ////        return NotFound(new { message = "Pharmacy not found." });
-        ////    }
-
-        ////    foreach (var medicationId in medicationIds)
-        ////    {
-        ////        var medication = await _dbContext.Medications.FindAsync(medicationId);
-        ////        if (medication == null) continue; // لو الدواء غير موجود، نكمل الباقي
-
-        ////        var existingEntry = await _dbContext.Set<Med_Phar>()
-        ////            .FirstOrDefaultAsync(mp => mp.MedicationId == medicationId && mp.PharmacyId == pharmacy.Id);
-
-        ////        if (existingEntry == null)
-        ////        {
-        ////            var medPhar = new Med_Phar
-        ////            {
-        ////                MedicationId = medicationId,
-        ////                PharmacyId = pharmacy.Id,
-        ////                Quantity = 1,
-        ////                InStock = true
-        ////            };
-
-        ////            _dbContext.Set<Med_Phar>().Add(medPhar);
-        ////        }
-        ////    }
-
-        ////    await _dbContext.SaveChangesAsync();
-        ////    return Ok(new { message = "Medications added successfully!" });
-        ////}
-
-        //#endregion
-
-        // Keep your existing GET action
-
-
+        #region DashbordForAddMedican
         [HttpGet]
         public IActionResult DashbordForAddMedican()
         {
@@ -212,12 +114,6 @@ namespace PharmactMangmentEditeIdea.Controllers
             return View(x);
         }
 
-
-        #endregion
-
-
-
-        #region Padg of all medical 
         // Update the POST action to accept an array of medication IDs
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -297,7 +193,7 @@ namespace PharmactMangmentEditeIdea.Controllers
 
         #endregion
 
-        #region MyRegion
+        #region AllMedicationsForPharmacy
 
         [HttpGet]
         public async Task<IActionResult> AllMedicationsForPharmacy()

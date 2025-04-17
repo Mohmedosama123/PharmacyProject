@@ -27,7 +27,6 @@ namespace PharmactMangmentEditeIdea.Controllers
             return View(AllMedicine);
         }
 
-
         #region Creat medicine in admin dashbord
         [HttpGet]
         public IActionResult Create()
@@ -77,7 +76,6 @@ namespace PharmactMangmentEditeIdea.Controllers
 
 
         #endregion
-
 
         #region Edite medicine in admin dashbord
         [HttpGet]
@@ -148,8 +146,6 @@ namespace PharmactMangmentEditeIdea.Controllers
         }
 
         #endregion
-
-
 
         #region Delet  medicine in admin dashbord
 
