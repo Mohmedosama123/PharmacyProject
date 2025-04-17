@@ -121,7 +121,7 @@ namespace PharmactMangmentEditeIdea.Controllers
                     var flag = await _userManager.CheckPasswordAsync(user, signInView.Password);
                     if (flag)
                     {
-                        var result = await _signInManager.PasswordSignInAsync(user, signInView.Password, signInView.RememberMe ?? false, false);
+                        var result = await _signInManager.PasswordSignInAsync(user, signInView.Password, signInView.RememberMe , false);
                         if (result.Succeeded)
                         {
                             if (await _userManager.IsInRoleAsync(user, "admin"))
