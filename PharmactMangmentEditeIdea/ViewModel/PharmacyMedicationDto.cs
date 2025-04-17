@@ -1,6 +1,6 @@
 ﻿namespace PharmactMangmentEditeIdea.ViewModel
 {
-    public class PharmacyAddMedicationDto
+    public class PharmacyMedicationDto
     {
         public int MedicationId { get; set; }
         public int Quantity { get; set; }
