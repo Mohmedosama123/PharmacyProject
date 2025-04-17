@@ -28,7 +28,7 @@ namespace PharmactMangmentEditeIdea.Controllers
                 NameOfPharmacy = U.NameOfPharmacy,
                 Email = U.Email,
                 Roles = _userManager.GetRolesAsync(U).Result,
-                ImageName = string.IsNullOrEmpty(U.ImageName) ? "OIP.png" : U.ImageName, // ✅ تعيين الصورة الافتراضية
+                ImageName = U.ImageName 
 
             }).ToList();
 
@@ -51,7 +51,7 @@ namespace PharmactMangmentEditeIdea.Controllers
                 NameOfPharmacy = user.NameOfPharmacy,
                 Email = user.Email,
                 Roles = _userManager.GetRolesAsync(user).Result,
-                ImageName = string.IsNullOrEmpty(user.ImageName) ? "OIP.jpg" : user.ImageName // ✅ تعيين الصورة الافتراضية
+                ImageName = user.ImageName 
 
             };
             return View(userViewmodel);
@@ -92,16 +92,10 @@ namespace PharmactMangmentEditeIdea.Controllers
                     user.Email = userToReturnDTO.Email;
                     user.ImageName = userToReturnDTO.ImageName;
 
-                    //if (userToReturnDTO.Image is not null)
-                    //{
-                    //    // حفظ الصورة وتحديث اسمها في قاعدة البيانات
-                    //    var fileName = DecumentSettings.UploadImage(userToReturnDTO.Image, "Images");
-                    //    user.ImageName = fileName;  // ✅ التحديث على `user`
-                    //}
-
                     var result = await _userManager.UpdateAsync(user);
                     if (result.Succeeded)
                     {
+                        TempData["Message"] = "User Updated Successfully";
                         return RedirectToAction(nameof(Index));
                     }
                 }
@@ -128,7 +122,7 @@ namespace PharmactMangmentEditeIdea.Controllers
                 NameOfPharmacy = user.NameOfPharmacy,
                 Email = user.Email,
                 Roles = _userManager.GetRolesAsync(user).Result,
-                ImageName = string.IsNullOrEmpty(user.ImageName) ? "OIP.jpg" : user.ImageName // ✅ تعيين الصورة الافتراضية
+                ImageName = user.ImageName 
 
             };
             return View(userViewmodel);
@@ -146,7 +140,8 @@ namespace PharmactMangmentEditeIdea.Controllers
                 var result = await _userManager.DeleteAsync(user);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction(nameof(Index));
+                TempData["Message"] = "Delete User Successfully";
+                return RedirectToAction(nameof(Index));
                 }
 
                 return View("Index", _userManager.Users.Select(u => new UserToReturnViewModel
