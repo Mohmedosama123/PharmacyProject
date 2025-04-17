@@ -405,14 +405,28 @@ body.dark-mode .bi {
     color: white !important;
 }
 
-body.dark-mode .navbar-container {
+/*????? ?? input search in all medicen in pharmacy*/
+/* For search input text color in dark mode */
+body.dark-mode #medicationSearch {
+    color: black !important;
     background-color: white !important;
-    opacity: 10000;
-} 
-/* for form */
-body.dark-mode .search-form-container input {
-    background-color: white;
 }
+/* in medicin badg button searsh*/
+body.dark-mode #medicationCatalogSearch {
+    color: black !important;
+    background-color: white !important;
+}
+
+/* For search icon color in dark mode */
+body.dark-mode .input-group-text {
+    background-color: #1e293b !important;
+    border-color: #334155 !important;
+}
+
+    /* If you want the search icon specifically to be a different color than other icons in dark mode */
+    body.dark-mode .input-group-text .bi-search {
+        color: white !important;
+    }
 
 /* Responsive */
 @media (max-width: 768px) {

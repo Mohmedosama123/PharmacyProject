@@ -26,7 +26,7 @@ namespace PharmactMangmentEditeIdea.Controllers
                 Id = R.Id,
                 Name = R.Name
 
-            }); 
+            });
 
             return View(Role);
         }
@@ -38,6 +38,8 @@ namespace PharmactMangmentEditeIdea.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> CreateRole(RoleViewModel roleToReturnDTO)
         {
             if (ModelState.IsValid)
