@@ -92,7 +92,14 @@
                     return;
                 }
 
-                console.log('Selected medications:', selectedMedications);
+                // Collect medication data from the table rows with quantity and in-stock status
+                const medicationsData = collectMedicationDataFromTable();
+                console.log('Medications data to send:', medicationsData);
+
+                if (medicationsData.length === 0) {
+                    alert('Could not collect medication data from the table.');
+                    return;
+                }
 
                 // Show loading state
                 this.disabled = true;
@@ -111,7 +118,7 @@
                             'Content-Type': 'application/json',
                             'RequestVerificationToken': token
                         },
-                        body: JSON.stringify(selectedMedications)
+                        body: JSON.stringify(medicationsData)
                     })
                         .then(response => {
                             console.log('Response status:', response.status);
@@ -137,7 +144,7 @@
                         .catch(error => {
                             console.error('Error:', error);
                             // If fetch fails, fall back to form submission
-                            submitFormFallback();
+                            submitFormFallback(medicationsData);
                         })
                         .finally(() => {
                             // Reset button state
@@ -147,26 +154,63 @@
                 } catch (error) {
                     console.error('Error with fetch:', error);
                     // If fetch fails, fall back to form submission
-                    submitFormFallback();
+                    submitFormFallback(medicationsData);
                     this.disabled = false;
                     this.innerHTML = 'Save All Medications';
                 }
             });
         }
 
+        // Function to collect medication data from the table
+        function collectMedicationDataFromTable() {
+            const medicationsData = [];
+            const rows = document.querySelectorAll('#selected-medications-list tr');
+
+            rows.forEach(row => {
+                const medicationId = parseInt(row.querySelector('.remove-medication-btn').getAttribute('data-medication-id'));
+                const quantityInput = row.querySelector('input[type="number"]');
+                const inStockCheckbox = row.querySelector('input[type="checkbox"]');
+
+                // Get the values
+                const quantity = parseInt(quantityInput.value) || 1;
+                const inStock = inStockCheckbox.checked;
+
+                // Add the data
+                medicationsData.push({
+                    medicationId: medicationId,
+                    quantity: quantity,
+                    inStock: inStock
+                });
+            });
+
+            return medicationsData;
+        }
+
         // Fallback function for form submission
-        function submitFormFallback() {
+        function submitFormFallback(medicationsData) {
             // Clear previous inputs
             const container = document.getElementById('medicationIdsContainer');
             container.innerHTML = '';
 
-            // Add hidden inputs for each medication ID
-            selectedMedications.forEach((id, index) => {
-                const input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = `medicationIds[${index}]`;
-                input.value = id;
-                container.appendChild(input);
+            // Add hidden inputs for each medication with quantity and inStock
+            medicationsData.forEach((med, index) => {
+                const idInput = document.createElement('input');
+                idInput.type = 'hidden';
+                idInput.name = `medications[${index}].MedicationId`;
+                idInput.value = med.medicationId;
+                container.appendChild(idInput);
+
+                const quantityInput = document.createElement('input');
+                quantityInput.type = 'hidden';
+                quantityInput.name = `medications[${index}].Quantity`;
+                quantityInput.value = med.quantity;
+                container.appendChild(quantityInput);
+
+                const inStockInput = document.createElement('input');
+                inStockInput.type = 'hidden';
+                inStockInput.name = `medications[${index}].InStock`;
+                inStockInput.value = med.inStock;
+                container.appendChild(inStockInput);
             });
 
             // Submit the form

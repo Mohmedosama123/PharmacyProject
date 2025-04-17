@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using PharmactMangmentBLL.Interfaces;
 using PharmactMangmentDAL.Data.Contexts;
 using PharmactMangmentDAL.Models;
+using PharmactMangmentEditeIdea.ViewModel;
 
 namespace PharmactMangmentEditeIdea.Controllers
 {
@@ -30,12 +31,12 @@ namespace PharmactMangmentEditeIdea.Controllers
             return View(x);
         }
 
-        // Update the POST action to accept an array of medication IDs
+        // Updated to accept PharmacyMedicationDto objects
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DashbordForAddMedican(List<int> medicationIds)
+        public async Task<IActionResult> DashbordForAddMedican(List<PharmacyMedicationDto> medications)
         {
-            if (medicationIds == null || !medicationIds.Any())
+            if (medications == null || !medications.Any())
             {
                 TempData["ErrorMessage"] = "No medications selected.";
                 return RedirectToAction("Dashbord");
@@ -55,43 +56,48 @@ namespace PharmactMangmentEditeIdea.Controllers
 
                 int addedCount = 0;
 
-                // Process each medication ID
-                foreach (var medicationId in medicationIds)
+                // Process each medication with its quantity and stock status
+                foreach (var medication in medications)
                 {
                     // 2️⃣ Check if medication exists
-                    var medication = await _dbContext.Medications.FindAsync(medicationId);
-                    if (medication == null)
+                    var medicationEntity = await _dbContext.Medications.FindAsync(medication.MedicationId);
+                    if (medicationEntity == null)
                     {
                         continue; // Skip this medication and continue with the next one
                     }
 
                     // 3️⃣ Check if medication is already added to the pharmacy
                     var existingEntry = await _dbContext.Set<Med_Phar>()
-                        .FirstOrDefaultAsync(mp => mp.MedicationId == medicationId && mp.PharmacyId == pharmacy.Id);
+                        .FirstOrDefaultAsync(mp => mp.MedicationId == medication.MedicationId && mp.PharmacyId == pharmacy.Id);
 
                     if (existingEntry == null)
                     {
-                        // 4️⃣ Add medication to pharmacy
+                        // 4️⃣ Add medication to pharmacy with the provided quantity and stock status
                         var medPhar = new Med_Phar
                         {
-                            MedicationId = medicationId,
+                            MedicationId = medication.MedicationId,
                             PharmacyId = pharmacy.Id,
-                            // Set default values for Quantity and InStock until handel in view
-                            Quantity = 1,
-                            InStock = true
+                            Quantity = medication.Quantity,
+                            InStock = medication.InStock
                         };
 
                         _dbContext.Set<Med_Phar>().Add(medPhar);
                         addedCount++;
                     }
+                    else
+                    {
+                        // Update existing entry if needed
+                        existingEntry.Quantity = medication.Quantity;
+                        existingEntry.InStock = medication.InStock;
+                        _dbContext.Set<Med_Phar>().Update(existingEntry);
+                    }
                 }
 
-                // Save changes if any medications were added
+                // Save changes if any medications were added or updated
                 if (addedCount > 0)
                 {
                     await _dbContext.SaveChangesAsync();
                     TempData["SuccessMessage"] = $"{addedCount} medications added to your pharmacy.";
-
                 }
                 else
                 {
@@ -122,14 +128,28 @@ namespace PharmactMangmentEditeIdea.Controllers
                 return NotFound("Pharmacy not found.");
             }
 
-            var medications = await _dbContext.Set<Med_Phar>()
+            var medications = await _dbContext.Set<Med_Phar>().Include(mp => mp.medican)
                 .Where(mp => mp.PharmacyId == pharmacy.Id)
-                .Select(mp => mp.medican)
+                .Select(mp => new PharmacyMedicationListDto
+                {
+                    MedicationImageName = mp.medican.ImageName,
+                    MedicationName = mp.medican.Name,
+                    InStock = mp.InStock,
+                    Quantity = mp.Quantity,
+                    MedicationPrice = mp.medican.Price,
+                })
                 .ToListAsync();
 
             return View(medications);
-        } 
+        }
         #endregion
+    }
 
+    // Add this DTO class to the same namespace or move it to a separate file
+    public class PharmacyMedicationDto
+    {
+        public int MedicationId { get; set; }
+        public int Quantity { get; set; }
+        public bool InStock { get; set; }
     }
 }

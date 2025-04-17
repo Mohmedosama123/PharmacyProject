@@ -1,5 +1,5 @@
 ﻿@using PharmactMangmentDAL.Models
-@model List<Medication>
+@model List<PharmacyMedicationListDto>
 @{
     ViewData["Title"] = "AllMedicationsForPharmacy";
     Layout = "/Views/Shared/_PharmacyIayout.cshtml";
@@ -64,20 +64,26 @@
                                         <tr>
                                             <td>
                                                 <div class="medication-img-sm">
-                                                    @if (!string.IsNullOrEmpty(medication.ImageName))
+                                                    @if (!string.IsNullOrEmpty(medication.MedicationImageName))
                                                     {
-                                                        <img src="~/Images/Medications/@medication.ImageName" alt="@medication.ImageName" class="img-fluid rounded">
+                                                        <img src="~/Images/Medications/@medication.MedicationImageName" alt="@medication.MedicationImageName" class="img-fluid rounded">
                                                     }
                                                     else{
-                                                        <img src="~/Images/DefaultFileUploader.png" alt="@medication.ImageName" class="img-fluid rounded">
+                                                        <img src="~/Images/DefaultFileUploader.png" alt="@medication.MedicationImageName" class="img-fluid rounded">
                                                     }
                                                 </div>
                                             </td>
-                                            <td>@medication.Name</td>
-                                            <td>@medication.Price</td>
-                                            <td>100</td>
+                                            <td>@medication.MedicationName</td>
+                                            <td>@medication.MedicationPrice</td>
+                                            <td>@medication.Quantity</td>
                                             <td>
-                                                <span class="badge bg-success">In Stock</span>
+                                                @if (medication.InStock)
+                                                {
+                                                    <span class="badge bg-success">In Stock</span>
+                                                }
+                                                else{
+                                                    <span class="badge bg-danger">Out-Of Stock</span>
+                                                }
                                             </td>
                                             <td class="text-end">
                                                
