@@ -63,13 +63,13 @@
                                    <tr>
                                        <td>
                                            <div class="medication-img-sm">
-                                               @if(user.ImageName is not null )
+                                               @if(user.ImageName is  null )
                                                {
-                                                  <img src="@Url.Content("~/Images/" + (string.IsNullOrEmpty(user.ImageName) ? "default-avatar.jpg" : $"Profiles/{user.ImageName}"))" alt="@user.ImageName" class="img-fluid rounded" />
+                                                     <img src="@Url.Content("~/Images/" +"default-avatar.jpg")" alt="@user.ImageName" class="img-fluid rounded" />
                                                }
                                                else
                                                {
-                                                  <img src="@Url.Content("~/Images/" +"default-avatar.jpg")" alt="@user.ImageName" class="img-fluid rounded" />
+                                                     <img src="@Url.Content("~/Images/" + (string.IsNullOrEmpty(user.ImageName) ? "default-avatar.jpg" : $"Profiles/{user.ImageName}"))" alt="@user.ImageName" class="img-fluid rounded" />
                                                }
                                            </div>
                                        </td>

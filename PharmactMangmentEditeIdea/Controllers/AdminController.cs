@@ -56,7 +56,9 @@ namespace PharmactMangmentEditeIdea.Controllers
                     Description = creatMedican.Description,
                     Price = creatMedican.Price,
                     Category = creatMedican.Category,
-                    ImageName = creatMedican.ImageName
+                    // علشان لو محطيتش صوره يبقي ياخد صوره علشان الحذف
+                    ImageName = string.IsNullOrEmpty(creatMedican.ImageName) ? "OIP.png" : creatMedican.ImageName
+
 
                 };
 

@@ -39,7 +39,7 @@ namespace PharmactMangmentEditeIdea
             //builder.Services.AddControllers()ِِِ.AddNewtonsoftJson(); // دعم JSON
 
             var app = builder.Build();
-
+            // when run app apdate database outomatic
             using (var scope = app.Services.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<PharmaceDbContext>();
