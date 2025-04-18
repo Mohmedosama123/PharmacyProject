@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PharmactMangmentBLL.Interfaces;
+using PharmactMangmentBLL.Repositories;
 using PharmactMangmentDAL.Data.Contexts;
 using PharmactMangmentDAL.Models;
+using PharmactMangmentEditeIdea.HelperImage;
 using PharmactMangmentEditeIdea.ViewModel;
 
 namespace PharmactMangmentEditeIdea.Controllers
@@ -143,7 +145,44 @@ namespace PharmactMangmentEditeIdea.Controllers
             return View(medications);
         }
         #endregion
+
+
+        //#region Delet medicine from pharmact
+        
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteMedication([FromRoute] int? id)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        if (id is null)
+        //            return BadRequest();
+        //        var medication = await ofWork.pharmaceRepository.GetMedicanAbyIdAsync(id.Value);
+        //        if (medication is null)
+        //            return NotFound(new { StatusCode = 400, Message = $"Medican with id : {id} not found" });
+        //        // هيحذف الدواء هنا
+        //        ofWork.pharmaceRepository.DeleteMedican(medication);
+        //        int count = await ofWork.completeAsync();
+
+        //        if (count > 0)
+        //        {
+        //            DecumentSettings.DeleteImage("Images/Medications", medication.ImageName);
+        //            TempData["Message"] = "Medication Deleted Successfully";
+        //            return RedirectToAction("Index");
+        //        }
+        //        // هيروح علي لوحه التحكم
+        //        return RedirectToAction("Index");
+        //    }
+        //    return RedirectToAction("Index");
+        //}
+        //#endregion
+
     }
+
+
+
+
+
 
     // Add this DTO class to the same namespace or move it to a separate file
     public class PharmacyMedicationDto
