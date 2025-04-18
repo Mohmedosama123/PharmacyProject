@@ -42,7 +42,14 @@ body {
     background-color: rgba(15, 23, 42, 0.95);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
-
+#homedarkmodeandlogin {
+    transition: all 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.95);
+    z-index: 1000;
+}
+/*===============================*/
+/*=================*/
+/* ===========first section in home*/
 /* Hero Section */
 .hero-section {
     position: relative;
@@ -464,6 +471,13 @@ body.dark-mode .search-form-container .search-form input.form-control {
     background-color: white ;
     color: white ;
 }
+body.dark-mode #homedarkmodeandlogin {
+    background-color: rgba(15, 23, 42, 0.95);
+}
+
+
+
+/*------enddarkmode-------- */
 
 
 
