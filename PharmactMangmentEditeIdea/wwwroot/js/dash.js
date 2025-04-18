@@ -172,91 +172,36 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     }
-
+    /*///////////////////////////////////////////////////////////////// */
     // Medication details modal functionality
-    const viewDetailsButtons = document.querySelectorAll('.view-details-btn');
-    const medicationDetailsModal = document.getElementById('medicationDetailsModal');
-    const modalMedicationName = document.getElementById('modal-medication-name');
-    const modalMedicationCategory = document.getElementById('modal-medication-category');
-    const modalMedicationPrice = document.getElementById('modal-medication-price');
-    const modalMedicationDescription = document.getElementById('modal-medication-description');
-    const modalAddMedicationBtn = document.getElementById('modal-add-medication-btn');
+    button.addEventListener('click', function () {
+        const medicationId = this.getAttribute('data-medication-id');
+        const name = this.getAttribute('data-name');
+        const category = this.getAttribute('data-category');
+        const price = this.getAttribute('data-price');
+        const description = this.getAttribute('data-description') || "No description available";
+        const imageUrl = this.getAttribute('data-image-url');
 
-    // Mock medication data for demo purposes
-    const medicationDetails = {
-        '1': {
-            name: 'Paracetamol',
-            category: 'Analgesic & Antipyretic',
-            price: '15.50 EGP',
-            description: 'Paracetamol is a common pain reliever and fever reducer. It is used to treat many conditions such as headache, muscle aches, arthritis, backache, toothaches, colds, and fevers.'
-        },
-        '2': {
-            name: 'Amoxicillin',
-            category: 'Antibiotic',
-            price: '45.75 EGP',
-            description: 'Amoxicillin is a penicillin antibiotic that fights bacteria. It is used to treat many different types of infection caused by bacteria, such as tonsillitis, bronchitis, pneumonia, and infections of the ear, nose, throat, skin, or urinary tract.'
-        },
-        '3': {
-            name: 'Omeprazole',
-            category: 'Proton Pump Inhibitor',
-            price: '55.50 EGP',
-            description: 'Omeprazole is used to treat certain stomach and esophagus problems (such as acid reflux, ulcers). It works by decreasing the amount of acid your stomach makes.'
-        },
-        '4': {
-            name: 'Ibuprofen',
-            category: 'NSAID',
-            price: '20.25 EGP',
-            description: 'Ibuprofen is a nonsteroidal anti-inflammatory drug (NSAID). It works by reducing hormones that cause inflammation and pain in the body.'
-        },
-        '5': {
-            name: 'Loratadine',
-            category: 'Antihistamine',
-            price: '35.00 EGP',
-            description: 'Loratadine is an antihistamine that reduces the effects of natural chemical histamine in the body. Histamine can produce symptoms of sneezing, itching, watery eyes, and runny nose.'
-        },
-        '6': {
-            name: 'Metformin',
-            category: 'Antidiabetic',
-            price: '42.50 EGP',
-            description: 'Metformin is an oral diabetes medicine that helps control blood sugar levels. It is used together with diet and exercise to improve blood sugar control in adults with type 2 diabetes.'
-        },
-        '7': {
-            name: 'Atorvastatin',
-            category: 'Statin',
-            price: '65.75 EGP',
-            description: 'Atorvastatin is in a group of drugs called HMG CoA reductase inhibitors, or "statins." It reduces levels of "bad" cholesterol (low-density lipoprotein, or LDL) and triglycerides in the blood, while increasing levels of "good" cholesterol (high-density lipoprotein, or HDL).'
-        },
-        '8': {
-            name: 'Salbutamol',
-            category: 'Bronchodilator',
-            price: '38.25 EGP',
-            description: 'Salbutamol is a bronchodilator that relaxes muscles in the airways and increases air flow to the lungs. It is used to treat or prevent bronchospasm in people with reversible obstructive airway disease.'
+        modalMedicationName.textContent = name;
+        modalMedicationCategory.textContent = category;
+        modalMedicationPrice.textContent = price;
+        modalMedicationDescription.textContent = description;
+
+        if (imageUrl) {
+            modalMedicationImage.setAttribute('src', imageUrl);
+            modalMedicationImage.setAttribute('alt', name);
         }
-    };
 
-    if (viewDetailsButtons.length > 0 && medicationDetailsModal) {
-        viewDetailsButtons.forEach(button => {
-            button.addEventListener('click', function () {
-                const medicationId = this.getAttribute('data-medication-id');
-                const details = medicationDetails[medicationId];
+        modalAddMedicationBtn.setAttribute('data-medication-id', medicationId);
+        modalAddMedicationBtn.setAttribute('data-medication-name', name);
+        modalAddMedicationBtn.setAttribute('data-medication-price', price.replace(' EGP', ''));
 
-                if (details) {
-                    modalMedicationName.textContent = details.name;
-                    modalMedicationCategory.textContent = details.category;
-                    modalMedicationPrice.textContent = details.price;
-                    modalMedicationDescription.textContent = details.description;
+        const modal = new bootstrap.Modal(medicationDetailsModal);
+        modal.show();
+    });
 
-                    // Set the add button data attributes
-                    modalAddMedicationBtn.setAttribute('data-medication-id', medicationId);
-                    modalAddMedicationBtn.setAttribute('data-medication-name', details.name);
-                    modalAddMedicationBtn.setAttribute('data-medication-price', details.price.replace(' EGP', ''));
 
-                    // Show the modal
-                    const modal = new bootstrap.Modal(medicationDetailsModal);
-                    modal.show();
-                }
-            });
-        });
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  */
 
         // Add medication from modal
         if (modalAddMedicationBtn) {
