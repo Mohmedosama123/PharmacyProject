@@ -87,7 +87,7 @@
                         <span>Accurate and fast recognition</span>
                     </li>
                 </ul>
-                <a href="search.html" class="btn btn-primary">
+                <a asp-controller="Home" asp-action="SearchAboutMedicine" class="btn btn-primary">
                     <i class="bi bi-mic-fill me-2"></i>
                     Try Voice Search
                 </a>
@@ -98,9 +98,9 @@
                         <i class="bi bi-mic-fill text-primary mb-3" style="font-size: 4rem;"></i>
                         <h3 class="h4 mb-3">Say what you need</h3>
                         <p class="mb-4">"I need Paracetamol in Nasr City, Cairo"</p>
-                        <button class="btn btn-outline-primary rounded-circle p-3">
+                        <a asp-controller="Home" asp-action="SearchAboutMedicine" class="btn btn-outline-primary rounded-circle p-3">
                             <i class="bi bi-mic-fill" style="font-size: 1.5rem;"></i>
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>

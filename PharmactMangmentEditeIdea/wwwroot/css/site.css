@@ -24,14 +24,14 @@ body {
     margin-bottom: 60px;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
-
+/*========================== strat nave style ==========================*/
 /* Navbar */
 .navbar-container {
     transition: all 0.3s ease;
     background-color: transparent;
     z-index: 1000;
 }
-
+/*================= pharmcy and admin bage style in darkmode =========*/
     .navbar-container.scrolled {
         background-color: rgba(255, 255, 255, 0.95);
         backdrop-filter: blur(10px);
@@ -43,7 +43,16 @@ body {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Hero Section */
+/*======================= Home and search style bage ==========*/
+#homedarkmodeandlogin {
+    transition: all 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.95);
+    z-index: 1000;
+}
+/*================== end nave bar =====================*/
+
+
+/* Hero Section  first section in home bage */
 .hero-section {
     position: relative;
     min-height: 80vh;
@@ -357,6 +366,8 @@ body {
     }
 }
 
+
+/* ------------------------strat dark mode--------------------- */
 /* Dark Mode */
 .dark-mode {
     color-scheme: dark;
@@ -393,6 +404,18 @@ body {
         background-color: rgba(255, 255, 255, 0.05);
     }
 
+
+
+/*========================================== */
+ /* chang color of navr bar  dark mode  */
+
+/* Home and search darkmode */
+body.dark-mode #homedarkmodeandlogin {
+    background-color: rgba(15, 23, 42, 0.95);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+/*=====================*****************/
+
 /* chang the wordr clo */
 body.dark-mode .navbar .nav-link {
     color: white !important;
@@ -427,6 +450,12 @@ body.dark-mode .input-group-text {
     body.dark-mode .input-group-text .bi-search {
         color: white !important;
     }
+
+
+/* ------------------------strat dark mode--------------------- */
+
+
+
 
 /* Responsive */
 @media (max-width: 768px) {

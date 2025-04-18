@@ -3,6 +3,10 @@
     ViewData["Title"] = "SignIn";
 }
 
+@* for validation *@
+<div asp-validation-summary="All" class="d-none mb-2 alert alert-danger"></div>
+
+  
 <main class="flex-grow-1">
     <div class="container py-5">
         <div class="row justify-content-center">
@@ -49,6 +53,8 @@
                                     <div class="mb-3 ">
                                         <input asp-for="RememberMe" type="checkbox" class="form-check-input">
                                         <label asp-for="RememberMe" class="form-check-label"></label>
+                                        <span asp-validation-for="RememberMe" class="text-danger"></span>
+
                                     </div>
 
                                     <button type="submit" class="btn btn-primary w-100">Login</button>
@@ -62,3 +68,8 @@
 	</div>
 </main>
 
+@* for validation *@
+@section ValidationScripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
