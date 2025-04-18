@@ -155,7 +155,7 @@ body {
         width: auto; /* Allow image to maintain aspect ratio */
         max-width: 100%; /* Ensure image doesn't overflow container */
         height: auto;
-        max-height: 180px; /* Set a reasonable max height */
+        max-height: 100px; /* Set a reasonable max height */
         object-fit: contain; /* Ensure the entire image is visible */
         margin: 0 auto; /* Center the image */
         display: block; /* Make image a block element for proper centering */
@@ -177,8 +177,8 @@ body {
         object-fit: cover;
     }
 
-    /* style of price */
-<!-- CSS to add to your stylesheet -->
+    /* style of price in searsh card*/
+<!-- CSS to add to your stylesheet in result card -->
 .pharmacy-card {
     position: relative; /* Ensure relative positioning for absolute positioning of children */
 }
@@ -457,6 +457,15 @@ body.dark-mode .input-group-text {
     body.dark-mode .input-group-text .bi-search {
         color: white !important;
     }
+
+
+/* Fix for search inputs in dark mode */
+body.dark-mode .search-form-container .search-form input.form-control {
+    background-color: white ;
+    color: white ;
+}
+
+
 
 /* Responsive */
 @media (max-width: 768px) {
