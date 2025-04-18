@@ -24,14 +24,14 @@ body {
     margin-bottom: 60px;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
-/*========================== strat nave style ==========================*/
+
 /* Navbar */
 .navbar-container {
     transition: all 0.3s ease;
     background-color: transparent;
     z-index: 1000;
 }
-/*================= pharmcy and admin bage style in darkmode =========*/
+
     .navbar-container.scrolled {
         background-color: rgba(255, 255, 255, 0.95);
         backdrop-filter: blur(10px);
@@ -43,16 +43,7 @@ body {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/*======================= Home and search style bage ==========*/
-#homedarkmodeandlogin {
-    transition: all 0.3s ease;
-    background-color: rgba(255, 255, 255, 0.95);
-    z-index: 1000;
-}
-/*================== end nave bar =====================*/
-
-
-/* Hero Section  first section in home bage */
+/* Hero Section */
 .hero-section {
     position: relative;
     min-height: 80vh;
@@ -149,20 +140,31 @@ body {
         transform: translateY(-5px);
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
     }
+/* start imag of card medicine */
 
 .medication-img {
-    width: 64px;
-    height: 64px;
+    width: 100%; /* Increase to full width of parent container */
+    height: auto; /* Allow height to adjust proportionally */
     overflow: hidden;
+    margin: 0 auto; /* Center the container */
+    text-align: center; /* Center the image inside */
+    padding: 0.75rem; /* Add some padding around the image */
 }
 
     .medication-img img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+        width: auto; /* Allow image to maintain aspect ratio */
+        max-width: 100%; /* Ensure image doesn't overflow container */
+        height: auto;
+        max-height: 100px; /* Set a reasonable max height */
+        object-fit: contain; /* Ensure the entire image is visible */
+        margin: 0 auto; /* Center the image */
+        display: block; /* Make image a block element for proper centering */
         transition: transform 0.3s ease;
     }
-
+/* Add hover effect for image (optional) */
+.pharmacy-card:hover .medication-img img {
+    transform: scale(1.05);
+}
 .medication-img-sm {
     width: 40px;
     height: 40px;
@@ -175,6 +177,25 @@ body {
         object-fit: cover;
     }
 
+    /* style of price in searsh card*/
+<!-- CSS to add to your stylesheet in result card -->
+.pharmacy-card {
+    position: relative; /* Ensure relative positioning for absolute positioning of children */
+}
+
+.price-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: var(--primary);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0 0.25rem 0 0.5rem;
+    font-weight: bold;
+    z-index: 2; /* Ensure it appears above other elements */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+/* end imag of card medicine */
 .medication-description {
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -366,8 +387,6 @@ body {
     }
 }
 
-
-/* ------------------------strat dark mode--------------------- */
 /* Dark Mode */
 .dark-mode {
     color-scheme: dark;
@@ -403,18 +422,6 @@ body {
     .dark-mode .table-hover tbody tr:hover {
         background-color: rgba(255, 255, 255, 0.05);
     }
-
-
-
-/*========================================== */
- /* chang color of navr bar  dark mode  */
-
-/* Home and search darkmode */
-body.dark-mode #homedarkmodeandlogin {
-    background-color: rgba(15, 23, 42, 0.95);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-/*=====================*****************/
 
 /* chang the wordr clo */
 body.dark-mode .navbar .nav-link {
@@ -452,8 +459,11 @@ body.dark-mode .input-group-text {
     }
 
 
-/* ------------------------strat dark mode--------------------- */
-
+/* Fix for search inputs in dark mode */
+body.dark-mode .search-form-container .search-form input.form-control {
+    background-color: white ;
+    color: white ;
+}
 
 
 
