@@ -129,11 +129,13 @@ namespace PharmactMangmentEditeIdea.Controllers
             {
                 return NotFound("Pharmacy not found.");
             }
-
+            // هات من ال med_phar الحاجات دي
             var medications = await _dbContext.Set<Med_Phar>().Include(mp => mp.medican)
                 .Where(mp => mp.PharmacyId == pharmacy.Id)
                 .Select(mp => new PharmacyMedicationListDto
                 {
+                    MedicationId = mp.MedicationId,
+                    PharmacyId=mp.PharmacyId,
                     MedicationImageName = mp.medican.ImageName,
                     MedicationName = mp.medican.Name,
                     InStock = mp.InStock,
@@ -147,35 +149,29 @@ namespace PharmactMangmentEditeIdea.Controllers
         #endregion
 
 
-        //#region Delet medicine from pharmact
-        
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteMedication([FromRoute] int? id)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        if (id is null)
-        //            return BadRequest();
-        //        var medication = await ofWork.pharmaceRepository.GetMedicanAbyIdAsync(id.Value);
-        //        if (medication is null)
-        //            return NotFound(new { StatusCode = 400, Message = $"Medican with id : {id} not found" });
-        //        // هيحذف الدواء هنا
-        //        ofWork.pharmaceRepository.DeleteMedican(medication);
-        //        int count = await ofWork.completeAsync();
+        #region Delet medicine from pharmact
 
-        //        if (count > 0)
-        //        {
-        //            DecumentSettings.DeleteImage("Images/Medications", medication.ImageName);
-        //            TempData["Message"] = "Medication Deleted Successfully";
-        //            return RedirectToAction("Index");
-        //        }
-        //        // هيروح علي لوحه التحكم
-        //        return RedirectToAction("Index");
-        //    }
-        //    return RedirectToAction("Index");
-        //}
-        //#endregion
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteMedication( [FromRoute] int medicationId, [FromRoute] int pharmacyId)
+        {
+
+
+          var item = await _dbContext.Med_Phars
+          .FirstOrDefaultAsync(mp => mp.MedicationId == medicationId && mp.PharmacyId == pharmacyId);
+
+
+            if (item == null)
+            {
+                return NotFound(); // العلاقة مش موجودة
+            }
+
+            _dbContext.Med_Phars.Remove(item);
+            await _dbContext.SaveChangesAsync();
+
+            return RedirectToAction("Index"); // أو أي View تاني
+        }
+        #endregion
 
     }
 

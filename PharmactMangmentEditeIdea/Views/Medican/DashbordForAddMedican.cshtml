@@ -94,9 +94,16 @@
                                                 <p class="fw-bold mb-0">@medication.Price</p>
                                             </div>
                                             <div class="card-footer bg-white border-top-0 text-center">
-                                                <button class="btn btn-sm btn-outline-primary view-details-btn" data-medication-id="@medication.Id">
+                                                <button class="btn btn-sm btn-outline-primary view-details-btn"
+                                                        data-medication-id="@medication.Id"
+                                                        data-description="@medication.Description"
+                                                        data-name="@medication.Name"
+                                                        data-price="@medication.Price"
+                                                        data-category="@medication.Category"
+                                                        data-image-url="~/Images/Medications/@(string.IsNullOrEmpty(medication.ImageName) ? "DefaultFileUploader.png" : medication.ImageName)">
                                                     View Details
                                                 </button>
+
                                             </div>
                                         </div>
                                     </div>
@@ -157,7 +164,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="text-center mb-3">
+                <div class="text-center mb-3 d-none" >
                     <div class="medication-img mx-auto">
                         <img src="placeholder.svg" alt="Medication" id="modal-medication-image" class="img-fluid rounded">
                     </div>
@@ -173,8 +180,8 @@
                         <p id="modal-medication-price" class="fw-medium">0.00 EGP</p>
                     </div>
                 </div>
-                <p class="mb-1 text-muted">Description:</p>
-                <p id="modal-medication-description">
+                <p class="mb-1 text-muted d-none">Description:</p>
+                <p id="modal-medication-description" class="d-none">
                     Detailed description of the medication including its uses, dosage, and other relevant information.
                 </p>
             </div>

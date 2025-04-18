@@ -86,11 +86,11 @@
                                                 }
                                             </td>
                                             <td class="text-end">
-                                               
-                                                <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteMedicationModal" data-medication-id="1" data-medication-name="Paracetamol">
+
+                                                <a asp-action="DeleteMedication" asp-route-medicationId="@medication.MedicationId" asp-route-pharmacyId="@medication.PharmacyId" class="btn btn-sm btn-outline-danger">
                                                     <i class="bi bi-trash me-1"></i>
                                                     Delete
-                                                </button>
+                                                </a>
                                             </td>
                                         </tr>
 
