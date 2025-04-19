@@ -78,6 +78,11 @@ body {
     animation: fadeIn 0.3s ease;
 }
 
+
+.chat-header{
+    display : flex;
+    justify-content : space-between;
+}
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -322,4 +327,35 @@ body {
     margin-bottom: 15px;
 }
 
+/*button go to home*/
+.home-button {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
 
+    .home-button:hover {
+        background-color: #45a049;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .home-button i {
+        margin-left: 8px;
+    }
+
+/* Ensure the chat header accommodates the button */
+.chat-header {
+    position: relative;
+}
