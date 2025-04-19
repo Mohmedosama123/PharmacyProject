@@ -153,7 +153,7 @@ namespace PharmactMangmentEditeIdea.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteMedication( [FromRoute] int medicationId, [FromRoute] int pharmacyId)
+        public async Task<IActionResult> DeleteMedication( int medicationId,  int pharmacyId)
         {
 
 
@@ -167,9 +167,14 @@ namespace PharmactMangmentEditeIdea.Controllers
             }
 
             _dbContext.Med_Phars.Remove(item);
-            await _dbContext.SaveChangesAsync();
+           int count= await _dbContext.SaveChangesAsync();
 
-            return RedirectToAction("Index"); // أو أي View تاني
+            if(count > 0)
+            {
+                TempData["Message"] = "Medicane Deleted Successfully";
+
+            }
+            return RedirectToAction("AllMedicationsForPharmacy"); // أو أي View تاني
         }
         #endregion
 

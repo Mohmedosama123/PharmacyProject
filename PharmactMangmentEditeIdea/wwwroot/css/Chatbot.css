@@ -1,0 +1,325 @@
+﻿
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap');
+
+:root {
+    --primary-color: #4a6fa5;
+    --secondary-color: #166088;
+    --accent-color: #4fc3f7;
+    --background-color: #f5f7fa;
+    --text-color: #333;
+    --light-text: #666;
+    --white: #fff;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --border-radius: 12px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Tajawal', sans-serif;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.chat-container {
+    width: 100%;
+    max-width: 500px;
+    height: 80vh;
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+
+.chat-header {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 15px 20px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+    .chat-header i {
+        font-size: 1.4rem;
+    }
+
+.chat-messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.message {
+    max-width: 80%;
+    padding: 12px 16px;
+    border-radius: var(--border-radius);
+    line-height: 1.5;
+    position: relative;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.bot-message {
+    background-color: #f0f4f8;
+    border-top-right-radius: 0;
+    align-self: flex-start;
+    color: var(--text-color);
+}
+
+.user-message {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border-top-left-radius: 0;
+    align-self: flex-end;
+}
+
+.quick-action {
+    display: flex;
+    justify-content: center;
+    margin: 15px 0;
+}
+
+.quick-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+    .quick-btn:hover {
+        background-color: var(--secondary-color);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .quick-btn i {
+        font-size: 1.1rem;
+    }
+
+.chat-input-container {
+    padding: 15px;
+    background-color: var(--white);
+    border-top: 1px solid #eee;
+    display: none;
+}
+
+.chat-input-wrapper {
+    display: flex;
+    gap: 10px;
+}
+
+.chat-input {
+    flex: 1;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    outline: none;
+    font-size: 1rem;
+    transition: border 0.3s ease;
+}
+
+    .chat-input:focus {
+        border-color: var(--primary-color);
+    }
+
+.send-btn {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    width: 50px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .send-btn:hover {
+        background-color: var(--secondary-color);
+    }
+
+.medicine-result {
+    background-color: #e8f4fd;
+    border-radius: var(--border-radius);
+    padding: 15px;
+    margin-top: 10px;
+    border-right: 4px solid var(--accent-color);
+    animation: slideIn 0.4s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.medicine-result h4 {
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.medicine-result p {
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.medicine-result i {
+    color: var(--primary-color);
+    width: 20px;
+    text-align: center;
+}
+
+.medicine-card {
+    background-color: white;
+    border-radius: var(--border-radius);
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+    .medicine-card h5 {
+        color: var(--secondary-color);
+        margin-bottom: 10px;
+        font-size: 1.1rem;
+    }
+
+.medicine-price {
+    font-weight: bold;
+    color: #2e7d32;
+    font-size: 1.2rem;
+}
+
+.medicine-category {
+    background-color: #e3f2fd;
+    color: #1565c0;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+.close-btn {
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+    .close-btn:hover {
+        background-color: #ff5252;
+        transform: translateY(-2px);
+    }
+
+.typing-indicator {
+    display: inline-flex;
+    gap: 5px;
+    padding: 10px 15px;
+    background-color: #f0f4f8;
+    border-radius: 20px;
+}
+
+.typing-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #999;
+    border-radius: 50%;
+    animation: typingAnimation 1.4s infinite ease-in-out;
+}
+
+    .typing-dot:nth-child(1) {
+        animation-delay: 0s;
+    }
+
+    .typing-dot:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .typing-dot:nth-child(3) {
+        animation-delay: 0.4s;
+    }
+
+@keyframes typingAnimation {
+    0%, 60%, 100% {
+        transform: translateY(0);
+    }
+
+    30% {
+        transform: translateY(-5px);
+    }
+}
+
+.hidden {
+    display: none;
+}
+
+.no-results {
+    text-align: center;
+    padding: 20px;
+    color: var(--light-text);
+}
+
+.pharmacy-info {
+    background-color: #e8f5e9;
+    border-radius: var(--border-radius);
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+
