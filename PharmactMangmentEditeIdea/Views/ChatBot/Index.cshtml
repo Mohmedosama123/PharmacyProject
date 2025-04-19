@@ -6,146 +6,41 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>شات بوت الأدوية</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #ccc;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .chat-container {
-            width: 50%;
-            height: 80vh;
-            display: flex;
-            flex-direction: column;
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 0 10px rgba(0,0,0,0.2);
-        }
-
-        .chat-header {
-            background: black;
-            color: white;
-            padding: 15px;
-            font-size: 22px;
-            font-weight: bold;
-            text-align: center;
-        }
-
-        .chat-body {
-            background: white;
-            padding: 15px;
-            flex: 1;
-            overflow-y: auto;
-        }
-
-        .bot, .user {
-            margin: 10px 0;
-            max-width: 80%;
-            padding: 10px 15px;
-            border-radius: 20px;
-            display: inline-block;
-            clear: both;
-            font-size: 16px;
-        }
-
-        .bot {
-            background: #eee;
-            float: right;
-        }
-
-        .user {
-            background: black;
-            color: white;
-            float: left;
-        }
-
-        .chat-input {
-            display: flex;
-            border-top: 1px solid #ddd;
-        }
-
-            .chat-input input {
-                flex: 1;
-                padding: 15px;
-                border: none;
-                outline: none;
-                font-size: 16px;
-                direction: rtl;
-            }
-
-            .chat-input button {
-                background: black;
-                color: white;
-                border: none;
-                padding: 15px 20px;
-                cursor: pointer;
-                font-size: 18px;
-            }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوت البحث عن أدوية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/Chatbot.css">
+    
 </head>
 <body>
-
     <div class="chat-container">
-        <div class="chat-header">شات بوت البحث عن الدواء</div>
-        <div class="chat-body" id="chat-body">
-            <div class="bot">أهلًا وسهلًا! 👋<br>أنا هنا علشان أساعدك تلاقي الدواء اللي بتدور عليه.<br>من فضلك اكتب اسم الدواء، المحافظة، المركز، والمنطقة.</div>
+        <div class="chat-header">
+            <i class="fas fa-prescription-bottle-alt"></i>
+            <span>بوت البحث عن أدوية</span>
         </div>
-        <div class="chat-input">
-            <input type="text" id="user-input" placeholder="اكتب رسالتك هنا...">
-            <button onclick="sendMessage()">➤</button>
+
+        <div class="chat-messages" id="chat-messages">
+            <!-- Messages will be inserted here by JavaScript -->
+        </div>
+
+        <div class="quick-action">
+            <button class="quick-btn" id="search-btn">
+                <i class="fas fa-search"></i>
+                بحث عن دواء
+            </button>
+        </div>
+
+        <div class="chat-input-container" id="chat-input-container">
+            <div class="chat-input-wrapper">
+                <input type="text" class="chat-input" id="chat-input" placeholder="اكتب رسالتك هنا...">
+                <button class="send-btn" id="send-btn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
         </div>
     </div>
 
-    <script>
-          const chatBody = document.getElementById('chat-body');
-
-          function sendMessage() {
-            const input = document.getElementById('user-input');
-            const message = input.value.trim();
-            if (message === '') return;
-
-            addMessage(message, 'user');
-            input.value = '';
-
-            setTimeout(() => {
-              const botResponse = getPharmacyInfo(message);
-              addMessage(botResponse, 'bot');
-            }, 800);
-          }
-
-          function addMessage(text, sender) {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = sender;
-            messageDiv.textContent = text;
-            chatBody.appendChild(messageDiv);
-            chatBody.scrollTop = chatBody.scrollHeight;
-          }
-
-          function getPharmacyInfo(message) {
-            const parts = message.split(',');
-            if (parts.length < 4) {
-              return "من فضلك أدخل البيانات بالشكل التالي: اسم الدواء، المحافظة، المركز، المنطقة.";
-            }
-
-            const [medicine, gov, center, region] = parts.map(p => p.trim());
-
-            return `الدواء "${medicine}" متوفر في:
-        صيدلية الشفاء
-        العنوان: ${region}، ${center}، ${gov}
-        رقم التواصل: 01012345678`;
-          }
-    </script>
-
+    <script src="~/js/ChatBot.js"></script>
 </body>
 </html>
-
