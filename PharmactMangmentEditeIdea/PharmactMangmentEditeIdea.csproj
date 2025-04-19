@@ -7,6 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\Images\Medications\**" />
+    <Compile Remove="wwwroot\Images\Profiles\**" />
+    <Content Remove="wwwroot\Images\Medications\**" />
+    <Content Remove="wwwroot\Images\Profiles\**" />
+    <EmbeddedResource Remove="wwwroot\Images\Medications\**" />
+    <EmbeddedResource Remove="wwwroot\Images\Profiles\**" />
+    <None Remove="wwwroot\Images\Medications\**" />
+    <None Remove="wwwroot\Images\Profiles\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.14">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -24,7 +35,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\Chatbot\" />
-    <Folder Include="wwwroot\Images\Profiles\" />
   </ItemGroup>
 
 </Project>
