@@ -3,10 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PharmactMangmentBLL.Interfaces;
-using PharmactMangmentBLL.Repositories;
 using PharmactMangmentDAL.Data.Contexts;
 using PharmactMangmentDAL.Models;
-using PharmactMangmentEditeIdea.HelperImage;
 using PharmactMangmentEditeIdea.ViewModel;
 
 namespace PharmactMangmentEditeIdea.Controllers
@@ -148,7 +146,6 @@ namespace PharmactMangmentEditeIdea.Controllers
         }
         #endregion
 
-
         #region Delet medicine from pharmact
 
         [HttpPost]
@@ -178,18 +175,34 @@ namespace PharmactMangmentEditeIdea.Controllers
         }
         #endregion
 
-    }
+        #region Edit
+        [HttpGet]
+        public IActionResult Edit(int pharmacyId, int medicationId)
+        {
+            var result = _dbContext.Med_Phars.FirstOrDefault(mp => mp.MedicationId == medicationId && mp.PharmacyId == pharmacyId);
 
+            if (result == null)
+                throw new InvalidOperationException("Row not found!");
 
+            return View(result);
+        }
 
+        [HttpPost]
+        public IActionResult Edit(Med_Phar med_Phar)
+        {
+            var result = _dbContext.Med_Phars.FirstOrDefault(mp => mp.MedicationId == med_Phar.MedicationId && mp.PharmacyId == med_Phar.PharmacyId);
 
+            if (result == null)
+                throw new InvalidOperationException("Row not found!");
 
+            result.Quantity = med_Phar.Quantity;
+            result.InStock = med_Phar.InStock;
 
-    // Add this DTO class to the same namespace or move it to a separate file
-    public class PharmacyMedicationDto
-    {
-        public int MedicationId { get; set; }
-        public int Quantity { get; set; }
-        public bool InStock { get; set; }
+            _dbContext.Update(result);
+            _dbContext.SaveChanges();
+
+            return RedirectToAction("AllMedicationsForPharmacy");
+        }
+        #endregion
     }
 }

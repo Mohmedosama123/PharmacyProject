@@ -20,12 +20,12 @@
                     <div class="search-form-container animate-fade-in-up">
                         <form method="post" asp-action="SearchAboutMedicine" class="search-form bg-white-10 backdrop-blur-sm border-white-20 rounded-3 p-4">
                             <div class="mb-3">
-                                <label for="medication" class="form-label text-white d-flex align-items-center">
+                                <label asp-for="MedcineName" class="form-label text-white d-flex align-items-center">
                                     <i class="bi bi-capsule me-2"></i>
                                     Medication Name
                                 </label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="medication" name="medication" placeholder="Enter medication name">
+                                    <input asp-for="MedcineName" type="text" class="form-control" id="medication" placeholder="Enter medication name">
                                     <button type="button" class="btn btn-outline-light" id="voice-search-btn">
                                         <i class="bi bi-mic"></i>
                                     </button>
